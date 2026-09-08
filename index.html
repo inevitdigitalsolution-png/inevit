@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inevit Digital Solutions — Technology, Engineered Around Your Business</title>
+<meta name="description" content="Inevit Digital Solutions designs and builds intelligent technology solutions that solve real business problems — custom software, AI, automation, cybersecurity and system integration.">
+<meta name="theme-color" content="#0b0d10">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 26 26'%3E%3Crect x='1.5' y='1.5' width='23' height='23' rx='6' fill='%230b0d10' stroke='%23e8e6e0' stroke-width='1.6'/%3E%3Cpath d='M7.5 18.5 18.5 7.5' stroke='%23e8e6e0' stroke-width='1.6' stroke-linecap='round'/%3E%3Ccircle cx='18.5' cy='7.5' r='2.8' fill='%23e2582a'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600&family=Instrument+Sans:wght@400;500&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS & RESET ============ */
+:root{
+  --ink:#0b0d10; --ink-2:#101318; --ink-3:#151920;
+  --paper:#f4f1ea; --paper-2:#eae6dd;
+  --accent:#e2582a;
+  --txt-d:#eceae4; --txt-l:#14171b;
+  --edge:max(calc((100vw - 1240px)/2 + clamp(1.25rem,4vw,2.5rem)), clamp(1.25rem,4vw,2.5rem));
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+html,body{overflow-x:clip}
+body{
+  background:var(--ink);color:var(--txt-d);
+  font:400 1rem/1.65 'Instrument Sans',sans-serif;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+body.lock{overflow:hidden}
+::selection{background:var(--accent);color:#fff}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+img,svg{display:block}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+a{color:inherit;text-decoration:none}
+ul,ol{list-style:none}
+h1,h2,h3{font-family:'Sora',sans-serif;font-weight:600;letter-spacing:-.03em;line-height:1.08}
+h1 em,h2 em,h3 em,.serif{font-family:'Instrument Serif',serif;font-style:italic;font-weight:400;letter-spacing:0;font-size:1.04em}
+h1 em{color:var(--accent)}
+.mono{font-family:'JetBrains Mono',monospace}
+.container{width:100%;max-width:1240px;margin-inline:auto;padding-inline:clamp(1.25rem,4vw,2.5rem)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* film grain over everything, very quiet */
+.grain{position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+.skip{position:fixed;top:-100px;left:1rem;z-index:200;background:var(--accent);color:#fff;padding:.7rem 1.2rem;border-radius:8px;font-weight:500;transition:top .3s}
+.skip:focus{top:1rem}
+
+/* scroll progress */
+.progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:95}
+.progress span{display:block;height:100%;background:var(--accent);transform-origin:0 50%;transform:scaleX(0)}
+
+/* ============ REVEAL ============ */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1);transition-delay:var(--d,0s)}
+.rv.in{opacity:1;transform:none}
+
+/* ============ TYPE HELPERS ============ */
+.label{display:flex;align-items:center;gap:.9rem;font:500 .68rem 'JetBrains Mono';letter-spacing:.24em;text-transform:uppercase;color:var(--mut)}
+.label span{color:var(--accent)}
+.label::after{content:"";height:1px;width:52px;background:var(--line);opacity:.7}
+.lead{font-size:clamp(1.02rem,1.5vw,1.2rem);line-height:1.7;color:var(--mut);max-width:58ch}
+h2{font-size:clamp(2.1rem,4.4vw,3.6rem)}
+
+/* ============ SECTIONS ============ */
+.sec{position:relative;padding-block:clamp(5.5rem,11vw,9.5rem)}
+.sec-dark{background:var(--ink);color:var(--txt-d);--line:rgba(255,255,255,.09);--mut:#9aa1aa}
+.sec-light{background:var(--paper);color:var(--txt-l);--line:rgba(15,17,20,.14);--mut:#5d6167}
+.sec-head{margin-bottom:clamp(3rem,6vw,5rem)}
+.sec-head h2{margin-top:1.4rem}
+.two-col{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:3rem;align-items:end}
+.two-col .lead{justify-self:end}
+
+/* ============ BUTTONS ============ */
+.btn{display:inline-flex;align-items:center;gap:.65rem;font:500 .95rem 'Sora';letter-spacing:-.01em;
+  padding:1rem 1.8rem;border-radius:999px;border:1px solid transparent;
+  transition:transform .35s cubic-bezier(.2,.7,.2,1),background .35s,border-color .35s,color .35s;will-change:transform}
+.btn .ic{transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.btn:hover{transform:translateY(-2px)}
+.btn:hover .ic{transform:translateX(3px)}
+.btn:active{transform:translateY(0)}
+.btn-solid{background:var(--txt-d);color:var(--ink)}
+.btn-solid:hover{background:#fff}
+.btn-ghost{border-color:rgba(255,255,255,.28);color:var(--txt-d)}
+.btn-ghost:hover{border-color:rgba(255,255,255,.6);background:rgba(255,255,255,.05)}
+.btn-sm{padding:.6rem 1.15rem;font-size:.82rem}
+.btn-lg{padding:1.15rem 2.2rem;font-size:1.02rem}
+.w100{width:100%;justify-content:center}
+
+/* ============ NAV ============ */
+.nav{position:fixed;inset:0 0 auto;z-index:70;border-bottom:1px solid transparent;transition:background .4s,border-color .4s,backdrop-filter .4s}
+.nav.scrolled{background:rgba(10,12,15,.78);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom-color:rgba(255,255,255,.08)}
+.nav-in{max-width:1360px;margin-inline:auto;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.85rem clamp(1.25rem,4vw,2.5rem)}
+.brand{display:flex;align-items:center;gap:.7rem}
+.brand-mark{color:var(--txt-d)}
+.brand-name{font:600 1.08rem 'Sora';letter-spacing:-.02em}
+.brand-sub{font-size:.56rem;letter-spacing:.22em;color:#8d949d;text-transform:uppercase;margin-top:.2rem}
+.nav-links{display:flex}
+.nav-links a{position:relative;font:500 .85rem 'Sora';color:#c8ccd3;padding:.4rem 0;margin-left:1.9rem;transition:color .3s}
+.nav-links a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:0 50%;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.nav-links a:hover,.nav-links a.act{color:#fff}
+.nav-links a:hover::after,.nav-links a.act::after{transform:scaleX(1)}
+.nav-cta{display:flex;align-items:center;gap:1rem}
+.burger{display:none;width:40px;height:40px;position:relative}
+.burger span{position:absolute;left:9px;right:9px;height:1.6px;background:#e8e6e0;transition:transform .35s,top .35s}
+.burger span:first-child{top:15px}.burger span:last-child{top:24px}
+.burger.open span:first-child{top:19px;transform:rotate(45deg)}
+.burger.open span:last-child{top:19px;transform:rotate(-45deg)}
+
+.mnav{position:fixed;inset:0;z-index:60;background:var(--ink);display:flex;flex-direction:column;justify-content:center;gap:3rem;padding:6rem var(--edge) 3rem;visibility:hidden;opacity:0;transition:opacity .45s,visibility .45s}
+.mnav.open{visibility:visible;opacity:1}
+.mnav nav a{display:flex;align-items:baseline;gap:1.2rem;font:600 clamp(1.9rem,8vw,2.8rem)/1.25 'Sora';letter-spacing:-.03em;color:var(--txt-d);padding:.35rem 0;opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s,color .3s}
+.mnav nav a:hover{color:var(--accent)}
+.mnav nav a .mono{font-size:.8rem;color:var(--accent)}
+.mnav.open nav a{opacity:1;transform:none}
+.mnav.open nav a:nth-child(1){transition-delay:.06s}.mnav.open nav a:nth-child(2){transition-delay:.11s}
+.mnav.open nav a:nth-child(3){transition-delay:.16s}.mnav.open nav a:nth-child(4){transition-delay:.21s}
+.mnav.open nav a:nth-child(5){transition-delay:.26s}.mnav.open nav a:nth-child(6){transition-delay:.31s}
+.mnav .btn{align-self:flex-start}
+
+/* ============ HERO ============ */
+.hero{position:relative;min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+#heroCanvas{position:absolute;inset:0;width:100%;height:100%}
+.hero-veil{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(11,13,16,.9) 0%,rgba(11,13,16,.62) 38%,rgba(11,13,16,.12) 68%,rgba(11,13,16,.34) 100%),
+             linear-gradient(0deg,rgba(11,13,16,.85) 0%,rgba(11,13,16,0) 26%)}
+.hero-in{position:relative;z-index:2;padding-top:5rem}
+.hero-tag{display:flex;align-items:center;gap:.8rem;font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;color:#8d949d;margin-bottom:2.2rem}
+.hero-tag::before{content:"";width:8px;height:8px;background:var(--accent)}
+.hero h1{font-size:clamp(2.7rem,6.4vw,5.4rem);max-width:14ch}
+.hero-sub{margin-top:1.8rem;max-width:54ch;font-size:clamp(1.02rem,1.5vw,1.18rem);line-height:1.7;color:#aab0b8}
+.hero-cta{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2.6rem}
+.hero-foot{position:absolute;left:0;right:0;bottom:1.8rem;z-index:2;display:flex;justify-content:space-between;align-items:flex-end;padding-inline:var(--edge)}
+.hero-foot .mono{font-size:.62rem;letter-spacing:.2em;color:#767d86;text-transform:uppercase}
+.hero-scroll{display:flex;flex-direction:column;align-items:center;gap:.7rem;color:#9aa1aa}
+.hero-scroll:hover{color:#e8e6e0}
+.scroll-line{position:relative;width:1px;height:52px;background:rgba(255,255,255,.18);overflow:hidden}
+.scroll-line i{position:absolute;left:0;top:-14px;width:1px;height:14px;background:var(--accent);animation:sdrop 2.2s cubic-bezier(.6,0,.3,1) infinite}
+@keyframes sdrop{to{top:56px}}
+.hero-note{position:absolute;z-index:2;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#6d747d;opacity:.85}
+.hn-l{left:var(--edge);bottom:26%}
+.hn-r{right:var(--edge);bottom:26%;text-align:right;color:#8a6a58}
+.tick{position:absolute;width:14px;height:14px;border:1px solid rgba(255,255,255,.28);z-index:2}
+.tick.tl{top:92px;left:22px;border-right:0;border-bottom:0}
+.tick.tr{top:92px;right:22px;border-left:0;border-bottom:0}
+.tick.bl{bottom:22px;left:22px;border-right:0;border-top:0}
+.tick.br{bottom:22px;right:22px;border-left:0;border-top:0}
+
+/* ============ 01 PROBLEMS ============ */
+.probs{border-top:1px solid var(--line)}
+.prob{--pfg:var(--txt-l);--pmut:var(--mut);border-bottom:1px solid var(--line);transition:background .45s cubic-bezier(.2,.7,.2,1);margin-inline:-1.4rem;padding-inline:1.4rem}
+.prob-head{display:grid;grid-template-columns:4.2rem 1fr 3rem;align-items:center;width:100%;text-align:left;padding:1.9rem 0;gap:1rem}
+.p-num{font-size:.78rem;color:var(--pmut);transition:color .4s}
+.p-q{font:500 clamp(1.35rem,3vw,2.15rem)/1.2 'Sora';letter-spacing:-.025em;color:var(--pfg);transition:color .4s}
+.p-ico{justify-self:end;color:var(--pmut);transition:transform .45s cubic-bezier(.2,.7,.2,1),color .4s}
+.prob-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .55s cubic-bezier(.2,.7,.2,1)}
+.prob-inner{overflow:hidden}
+.prob-a{display:flex;flex-wrap:wrap;align-items:baseline;gap:1.2rem 2rem;padding:0 0 2rem 4.2rem;opacity:0;transform:translateY(10px);transition:opacity .45s .1s,transform .45s .1s}
+.p-tag{display:inline-flex;align-items:center;gap:.6rem;font-size:.66rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent);white-space:nowrap}
+.p-tag::before{content:"";width:7px;height:7px;background:var(--accent)}
+.prob-a p{max-width:52ch;color:rgba(236,234,228,.78);font-size:1.02rem}
+@media (hover:hover){
+  .prob:hover,.prob.open{background:var(--ink);--pfg:#f0eee8;--pmut:#6d747d}
+  .prob:hover .prob-body,.prob.open .prob-body{grid-template-rows:1fr}
+  .prob:hover .prob-a,.prob.open .prob-a{opacity:1;transform:none}
+  .prob:hover .p-num,.prob.open .p-num{color:var(--accent)}
+  .prob:hover .p-ico,.prob.open .p-ico{transform:rotate(45deg);color:var(--accent)}
+}
+.prob.open{background:var(--ink);--pfg:#f0eee8;--pmut:#6d747d}
+.prob.open .prob-body{grid-template-rows:1fr}
+.prob.open .prob-a{opacity:1;transform:none}
+.prob.open .p-num{color:var(--accent)}
+.prob.open .p-ico{transform:rotate(45deg);color:var(--accent)}
+
+/* ============ 02 SOLUTIONS ============ */
+.sol-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(2.5rem,5vw,4.5rem);align-items:start}
+.sol-list li+li{border-top:1px solid var(--line)}
+.sol-item{display:flex;align-items:baseline;gap:1.3rem;width:100%;text-align:left;padding:1.05rem .2rem;position:relative;transition:transform .35s cubic-bezier(.2,.7,.2,1),color .3s;color:#b9bec6}
+.sol-item .mono{font-size:.7rem;color:#6d747d;transition:color .3s}
+.sol-item{font:500 1.06rem 'Sora';letter-spacing:-.01em}
+.sol-item::before{content:"";position:absolute;left:-1.4rem;top:50%;width:3px;height:0;background:var(--accent);transform:translateY(-50%);transition:height .35s}
+.sol-item:hover{color:#fff;transform:translateX(6px)}
+.sol-item[aria-selected="true"]{color:#fff;transform:translateX(6px)}
+.sol-item[aria-selected="true"] .mono{color:var(--accent)}
+.sol-item[aria-selected="true"]::before{height:60%}
+.sol-panel{position:sticky;top:110px;background:var(--ink-2);border:1px solid var(--line);border-radius:20px;padding:clamp(1.6rem,3vw,2.6rem);min-height:480px;display:flex;flex-direction:column}
+.sol-top{display:flex;align-items:center;gap:1rem;font-size:.68rem;letter-spacing:.18em;color:#6d747d;margin-bottom:2rem}
+.sol-prog{flex:0 0 72px;height:2px;background:rgba(255,255,255,.1);overflow:hidden;transition:opacity .4s}
+.sol-prog i{display:block;height:100%;width:0;background:var(--accent)}
+.sol-panel.manual .sol-prog{opacity:0}
+.sol-motif{align-self:flex-end;width:min(200px,44%);aspect-ratio:22/15;color:#99a0a9;margin-bottom:1rem}
+.sol-motif svg{width:100%;height:100%}
+.sol-motif *{fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;stroke-linejoin:round;vector-effect:non-scaling-stroke}
+.sol-motif .a{stroke:var(--accent)}
+.sol-motif .f{fill:var(--accent);stroke:none}
+.sol-swap{transition:opacity .24s ease,transform .24s ease}
+.sol-swap.fade{opacity:0;transform:translateY(10px)}
+.sol-swap h3{font-size:clamp(1.5rem,2.4vw,2rem);margin-bottom:1rem}
+.sol-swap p{color:var(--mut);max-width:48ch}
+.sol-tags{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1.6rem}
+.sol-tags li{font:500 .6rem 'JetBrains Mono';letter-spacing:.16em;padding:.42rem .8rem;border:1px solid var(--line);border-radius:999px;color:#9aa1aa}
+
+/* ============ 03 PROCESS ============ */
+.proc{--line:rgba(15,17,20,.16);--mut:#5d6167;background:var(--paper);color:var(--txt-l);position:relative}
+.proc-pin{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-block:4rem;position:relative}
+.proc-head{margin-bottom:clamp(2.5rem,5vh,4.5rem)}
+.proc-viewport{overflow:hidden}
+.proc-track{display:flex;align-items:flex-start;width:max-content;padding-left:var(--edge);padding-right:24vw;position:relative;will-change:transform}
+.proc-line{position:absolute;left:0;right:0;top:42px;height:1px;background:rgba(15,17,20,.16)}
+.proc-line i{display:block;height:1px;width:0;background:var(--accent);position:relative}
+.proc-line i b{position:absolute;right:-4px;top:-3.5px;width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.pstep{flex:0 0 auto;width:min(440px,78vw);padding-right:clamp(2rem,4vw,4rem);position:relative;z-index:1}
+.ps-num{font:500 4.4rem/1 'JetBrains Mono';color:transparent;-webkit-text-stroke:1.2px rgba(15,17,20,.75);margin-bottom:2.6rem}
+.pstep h3{font-size:1.65rem;margin-bottom:.9rem}
+.pstep p{color:var(--mut);max-width:34ch}
+.ps-meta{margin-top:1.4rem;font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:#8a8d92}
+.ps-meta::before{content:"— ";color:var(--accent)}
+.proc-sep{display:none;align-self:center;justify-content:center;padding:1.2rem 0;color:var(--accent)}
+.proc-end{flex:0 0 auto;align-self:center;margin-left:1rem;font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:#8a8d92;max-width:180px;line-height:1.9}
+.proc-ruler{margin-top:clamp(2.5rem,6vh,4rem)}
+.ruler-row{display:flex;justify-content:space-between;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:#8a8d92;margin-bottom:.8rem}
+.ruler{position:relative;height:10px}
+.ruler::before{content:"";position:absolute;inset:0 0 auto;height:8px;background:repeating-linear-gradient(90deg,rgba(15,17,20,.28) 0 1px,transparent 1px 10%)}
+.ruler i{position:absolute;left:0;top:3px;height:2px;width:0;background:var(--accent)}
+
+/* ============ 04 TRUST ============ */
+.trust-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(3rem,6vw,5.5rem);align-items:start}
+.trust-left{position:sticky;top:120px}
+.trust-left h2{margin:1.4rem 0 1.6rem}
+.trust-note{margin-top:2.2rem;font-size:.66rem;letter-spacing:.12em;color:#6d747d}
+.trust-note b{color:var(--accent);font-weight:400}
+.trust-list li{display:grid;grid-template-columns:4.5rem 1fr 2rem;gap:1.2rem;align-items:start;padding:1.5rem 0;border-top:1px solid var(--line);transition:background .35s,padding-left .35s}
+.trust-list li:last-child{border-bottom:1px solid var(--line)}
+.trust-list li:hover{background:rgba(255,255,255,.03);padding-left:.8rem}
+.t-idx{font-size:.68rem;color:#6d747d;padding-top:.35rem}
+.trust-list h3{font-size:1.18rem;letter-spacing:-.02em}
+.trust-list p{color:var(--mut);margin-top:.35rem;font-size:.95rem;max-width:52ch}
+.ck{margin-top:.3rem;opacity:.9}
+.ck path{stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset .55s ease .08s}
+.trust-list li:hover .ck path{stroke-dashoffset:0}
+
+/* ============ 05 WORK ============ */
+.case-note{margin-top:1.2rem;font-size:.68rem;letter-spacing:.1em;color:#8a8d92}
+.case-tabs{display:flex;flex-wrap:wrap;gap:.7rem;margin-bottom:2.2rem}
+.case-tab{font:500 .68rem 'JetBrains Mono';letter-spacing:.16em;text-transform:uppercase;padding:.75rem 1.3rem;border:1px solid var(--line);border-radius:999px;color:var(--mut);transition:background .35s,color .35s,border-color .35s}
+.case-tab:hover{border-color:rgba(15,17,20,.4)}
+.case-tab.is-on{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.case-panel{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:clamp(2.5rem,5vw,4.5rem);align-items:start}
+.case-panel.show{animation:caseIn .6s cubic-bezier(.2,.7,.2,1)}
+@keyframes caseIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.case-doc{border:1px solid var(--line);border-radius:20px;overflow:hidden;background:rgba(255,255,255,.35)}
+.case-meta{padding:.9rem 1.6rem;border-bottom:1px solid var(--line);font-size:.6rem;letter-spacing:.16em;color:#8a8d92;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+.phase{display:grid;grid-template-columns:3.4rem 1fr;gap:1rem;padding:1.5rem 1.6rem;border-bottom:1px solid var(--line)}
+.phase:last-child{border-bottom:0}
+.ph-n{font-size:.72rem;color:#8a8d92;padding-top:.2rem}
+.ph-t{font:500 .68rem 'JetBrains Mono';letter-spacing:.2em;text-transform:uppercase;margin-bottom:.5rem}
+.ph-out .ph-n,.ph-out .ph-t{color:var(--accent)}
+.phase p{color:var(--mut);font-size:.98rem}
+.case-fig{border:1px solid var(--line);border-radius:20px;padding:1.6rem;background:rgba(255,255,255,.35)}
+.diagram{width:100%;height:auto;color:var(--txt-l);opacity:.94}
+.diagram text{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.1em;fill:currentColor;stroke:none}
+.diagram .dim{opacity:.5;font-size:8px}
+.diagram rect,.diagram path,.diagram circle,.diagram line{fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.diagram .f{fill:var(--accent);stroke:none}
+.diagram .a,.diagram .a-st{stroke:var(--accent)}
+.diagram .flow{stroke-dasharray:5 7;animation:dashf 1.3s linear infinite}
+.diagram .pulse{animation:pulseD 2.4s ease-in-out infinite}
+@keyframes dashf{to{stroke-dashoffset:-12}}
+@keyframes pulseD{0%,100%{opacity:.35}50%{opacity:1}}
+.case-fig figcaption{margin-top:1.1rem;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:#8a8d92}
+
+/* ============ 06 SECURITY ============ */
+.sec-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(3rem,6vw,5rem);align-items:center}
+.list-cap{font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:#6d747d;margin-bottom:1.2rem}
+.sec-list li{display:flex;align-items:center;gap:1.1rem;padding:.85rem 0;border-bottom:1px solid var(--line);color:#c8ccd3;font:500 1rem 'Sora';letter-spacing:-.01em;transition:color .3s,padding-left .3s}
+.sec-list li:hover{color:#fff;padding-left:.5rem}
+.sec-list .sq{flex:0 0 9px;width:9px;height:9px;border:1px solid var(--accent);transition:background .3s}
+.sec-list li:nth-child(1) .sq{animation:sqf 9.5s infinite}
+.sec-list li:nth-child(2) .sq{animation:sqf 9.5s infinite 1.05s}
+.sec-list li:nth-child(3) .sq{animation:sqf 9.5s infinite 2.1s}
+.sec-list li:nth-child(4) .sq{animation:sqf 9.5s infinite 3.15s}
+.sec-list li:nth-child(5) .sq{animation:sqf 9.5s infinite 4.2s}
+.sec-list li:nth-child(6) .sq{animation:sqf 9.5s infinite 5.25s}
+.sec-list li:nth-child(7) .sq{animation:sqf 9.5s infinite 6.3s}
+.sec-list li:nth-child(8) .sq{animation:sqf 9.5s infinite 7.35s}
+.sec-list li:nth-child(9) .sq{animation:sqf 9.5s infinite 8.4s}
+@keyframes sqf{0%,5%{background:transparent}9%,30%{background:var(--accent)}38%,100%{background:transparent}}
+.sec-fig{border:1px solid var(--line);border-radius:20px;padding:1.8rem;background:var(--ink-2)}
+.arch{width:100%;height:auto;color:#aab0b8}
+.arch text{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.12em;fill:#8d949d;stroke:none}
+.arch rect,.arch path,.arch circle,.arch line{fill:none;stroke:currentColor;stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.arch .layer path{animation:lglow 10s ease-in-out infinite;opacity:.45}
+.arch .l2 path{animation-delay:1.5s}
+.arch .l3 path{animation-delay:3.5s}
+@keyframes lglow{0%,100%{opacity:.45}8%{opacity:1}26%{opacity:.45}}
+.arch .scan{fill:var(--accent);stroke:none;opacity:.85;animation:scanY 10s ease-in-out infinite alternate}
+@keyframes scanY{from{transform:translateY(0)}to{transform:translateY(216px)}}
+.arch .fdot{fill:var(--accent);stroke:none;animation:fdotB 10s ease-in-out infinite}
+.arch .fd2{animation-delay:1.5s}.arch .fd3{animation-delay:3.5s}
+@keyframes fdotB{0%,100%{opacity:.15}6%,20%{opacity:1}40%{opacity:.15}}
+.arch .f{fill:var(--accent);stroke:none}
+.arch-legend{margin-top:1.1rem;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:#6d747d}
+.arch-legend b{color:var(--accent);font-weight:400}
+
+/* ============ 07 AI ============ */
+.ai-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(3rem,6vw,5.5rem);align-items:start}
+.ai-left{position:sticky;top:120px}
+.ai-left h2{margin:1.4rem 0 1.6rem}
+.pull{border-left:2px solid var(--accent);padding:.4rem 0 .4rem 1.6rem;font:italic 400 clamp(1.35rem,2.2vw,1.75rem)/1.4 'Instrument Serif';max-width:24ch;margin-top:2.4rem}
+.ai-net-wrap{border:1px solid var(--line);border-radius:20px;padding:1rem;background:rgba(255,255,255,.4)}
+.ai-net{width:100%;height:auto;color:var(--txt-l);touch-action:manipulation}
+.ai-net .bl{stroke:currentColor;stroke-width:1;opacity:.14}
+.ai-net .ring{fill:none;stroke:currentColor;stroke-width:1;stroke-dasharray:3 7;opacity:.28}
+.ai-g{cursor:pointer;outline-offset:6px}
+.ai-g .main{fill:var(--paper);stroke:currentColor;stroke-width:1.4;transition:fill .35s,stroke .35s}
+.ai-g .sat{fill:currentColor;opacity:0;transition:opacity .4s}
+.ai-g .sl{stroke:var(--accent);stroke-width:1;opacity:0;transition:opacity .4s}
+.ai-g text{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:500;letter-spacing:.14em;fill:currentColor;opacity:.5;transition:opacity .35s,fill .35s}
+.ai-g.on .main{fill:var(--accent);stroke:var(--accent)}
+.ai-g.on .sat,.ai-g.on .sl{opacity:1}
+.ai-g.on text{opacity:1;fill:var(--accent)}
+.ai-net.hov .ai-g:not(.on) .main{opacity:.5}
+.ai-net.hov .ai-g:not(.on) text{opacity:.28}
+
+/* ============ 08 CONTACT ============ */
+.contact{min-height:92vh;display:flex;align-items:center;position:relative;overflow:hidden}
+.cta-dial{position:absolute;left:50%;top:50%;width:min(90vmin,780px);height:min(90vmin,780px);transform:translate(-50%,-50%);opacity:.12;animation:spin 160s linear infinite;pointer-events:none}
+@keyframes spin{to{transform:translate(-50%,-50%) rotate(360deg)}}
+.cta-dial circle,.cta-dial line{fill:none;stroke:#fff;stroke-width:1}
+.cta-in{position:relative;z-index:1;text-align:center;display:flex;flex-direction:column;align-items:center}
+.cta-in .label{justify-content:center}
+.cta-in .label::after{display:none}
+.cta-h{font-size:clamp(2.6rem,6.2vw,5.2rem);margin:1.6rem 0 1.2rem;max-width:16ch}
+.cta-h em{color:var(--accent)}
+.cta-sub{font-size:clamp(1.1rem,1.8vw,1.4rem);color:#aab0b8;max-width:40ch}
+.cta-btns{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-top:3rem}
+.mail-line{margin-top:3.2rem;font:500 .74rem 'JetBrains Mono';letter-spacing:.14em;color:#6d747d;transition:color .3s;padding:.5rem}
+.mail-line:hover{color:var(--accent)}
+
+/* ============ FOOTER ============ */
+.footer{background:#08090b;border-top:1px solid rgba(255,255,255,.07);color:var(--txt-d);--line:rgba(255,255,255,.08);--mut:#8d949d}
+.foot-top{display:grid;grid-template-columns:minmax(0,5fr) repeat(3,minmax(0,2.3fr));gap:3rem;padding-block:clamp(3.5rem,7vw,5.5rem)}
+.foot-word{font:600 clamp(2.2rem,4.5vw,3.4rem) 'Sora';letter-spacing:-.03em}
+.foot-word i{font-style:normal;color:var(--accent)}
+.foot-brand .mono{margin-top:1.2rem;font-size:.68rem;letter-spacing:.14em;line-height:2;color:var(--mut);text-transform:uppercase}
+.foot-col h4{font:500 .62rem 'JetBrains Mono';letter-spacing:.22em;text-transform:uppercase;color:#6d747d;margin-bottom:1.3rem}
+.foot-col a{display:block;padding:.32rem 0;color:#b9bec6;font-size:.95rem;transition:color .3s,padding-left .3s}
+.foot-col a:hover{color:#fff;padding-left:.4rem}
+.foot-bot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:1rem;padding-block:1.6rem;border-top:1px solid var(--line);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:#6d747d}
+.to-top{display:inline-flex;align-items:center;gap:.5rem;letter-spacing:.14em;text-transform:uppercase;font-size:.62rem;color:#6d747d;transition:color .3s;font-family:'JetBrains Mono'}
+.to-top:hover{color:var(--accent)}
+
+/* ============ MODAL & TOAST ============ */
+.modal{position:fixed;inset:0;z-index:120;display:grid;place-items:center;padding:1.2rem;visibility:hidden;opacity:0;transition:opacity .4s,visibility .4s}
+.modal.open{visibility:visible;opacity:1}
+.modal-back{position:absolute;inset:0;background:rgba(6,7,9,.66);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.modal-card{position:relative;width:min(540px,100%);max-height:90vh;overflow:auto;background:var(--ink-2);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:clamp(1.8rem,4vw,2.6rem);transform:translateY(24px) scale(.98);transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.modal.open .modal-card{transform:none}
+.modal-kick{font-size:.62rem;letter-spacing:.22em;text-transform:uppercase;color:var(--accent)}
+.modal-card h3{font-size:1.7rem;margin:.7rem 0 .4rem}
+.modal-card .f{display:block;margin-top:1.4rem}
+.f .lb{display:block;font:500 .6rem 'JetBrains Mono';letter-spacing:.2em;text-transform:uppercase;color:#8d949d;margin-bottom:.4rem}
+.f .lb i{font-style:normal;color:#565c64}
+.f input,.f textarea{width:100%;background:transparent;border:0;border-bottom:1px solid rgba(255,255,255,.14);color:var(--txt-d);font:400 1rem 'Instrument Sans';padding:.55rem 0;border-radius:0;transition:border-color .3s;resize:vertical}
+.f input:focus,.f textarea:focus{outline:none;border-bottom-color:var(--accent)}
+.modal-card form .btn{margin-top:2rem}
+.modal-note{margin-top:1rem;font-size:.6rem;letter-spacing:.12em;color:#6d747d;text-align:center}
+.modal-x{position:absolute;top:1.1rem;right:1.1rem;width:38px;height:38px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.14);border-radius:50%;color:#9aa1aa;transition:color .3s,transform .35s,border-color .3s}
+.modal-x:hover{color:#fff;transform:rotate(90deg);border-color:rgba(255,255,255,.4)}
+.toast{position:fixed;left:50%;bottom:1.6rem;z-index:150;transform:translate(-50%,14px);opacity:0;pointer-events:none;
+  background:#15181d;border:1px solid rgba(255,255,255,.12);color:var(--txt-d);border-radius:999px;
+  padding:.85rem 1.5rem;font:500 .74rem 'JetBrains Mono';letter-spacing:.08em;display:flex;align-items:center;gap:.7rem;
+  box-shadow:0 14px 40px rgba(0,0,0,.45);transition:opacity .4s,transform .4s}
+.toast::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width:1080px){
+  .sol-panel{min-height:420px}
+  .case-panel{grid-template-columns:1fr}
+}
+@media (max-width:920px){
+  .nav-links{display:none}
+  .nav-cta .btn{display:none}
+  .burger{display:block}
+  .two-col,.trust-grid,.sec-grid,.ai-grid,.sol-grid{grid-template-columns:1fr}
+  .two-col .lead{justify-self:start}
+  .trust-left,.ai-left{position:static}
+  .sol-panel{position:static;min-height:0}
+  .sol-item::before{left:-.8rem}
+  /* process becomes vertical */
+  .proc-pin{min-height:0;padding-block:clamp(5.5rem,11vw,9.5rem)}
+  .proc-track{flex-direction:column;width:auto;transform:none!important;padding:0 var(--edge);align-items:stretch}
+  .proc-line,.proc-ruler,.proc-end{display:none}
+  .proc-sep{display:flex}
+  .ps-num{font-size:3rem;margin-bottom:1.2rem}
+  .pstep{width:auto;padding-right:0}
+  .hn-l,.hn-r{display:none}
+}
+@media (max-width:640px){
+  .brand-sub{display:none}
+  .prob-head{grid-template-columns:2.6rem 1fr 2rem;padding:1.5rem 0}
+  .prob-a{padding-left:0}
+  .prob{margin-inline:-.9rem;padding-inline:.9rem}
+  .hero-cta .btn{width:100%;justify-content:center}
+  .foot-top{grid-template-columns:1fr 1fr}
+  .cta-btns .btn{width:100%;justify-content:center}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .rv{opacity:1;transform:none}
+}
+</style>
+<noscript><style>.rv{opacity:1;transform:none}.prob-body{grid-template-rows:1fr}.prob-a{opacity:1;transform:none}</style></noscript>
+</head>
+<body id="top">
+<a class="skip" href="#main">Skip to content</a>
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+<!-- ================= NAV ================= -->
+<header class="nav" id="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top" aria-label="Inevit Digital Solutions — home">
+      <svg class="brand-mark" width="27" height="27" viewBox="0 0 26 26" aria-hidden="true">
+        <rect x="1.2" y="1.2" width="23.6" height="23.6" rx="6.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M7.5 18.5 18.5 7.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        <circle cx="18.5" cy="7.5" r="2.7" fill="var(--accent)"/>
+      </svg>
+      <span class="brand-name">Inevit</span>
+      <span class="brand-sub mono">Digital<br>Solutions</span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#solutions">Solutions</a>
+      <a href="#process">Process</a>
+      <a href="#work">Work</a>
+      <a href="#security">Security</a>
+      <a href="#ai">AI</a>
+    </nav>
+    <div class="nav-cta">
+      <button class="btn btn-solid btn-sm" data-modal>Start a Conversation</button>
+      <button class="burger" id="burger" aria-expanded="false" aria-controls="mnav" aria-label="Open menu"><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- mobile menu -->
+<div class="mnav" id="mnav" aria-hidden="true">
+  <nav aria-label="Mobile">
+    <a href="#solutions"><span class="mono">02</span>Solutions</a>
+    <a href="#process"><span class="mono">03</span>Process</a>
+    <a href="#work"><span class="mono">05</span>Work</a>
+    <a href="#security"><span class="mono">06</span>Security</a>
+    <a href="#ai"><span class="mono">07</span>AI</a>
+    <a href="#contact"><span class="mono">08</span>Contact</a>
+  </nav>
+  <button class="btn btn-solid" data-modal>Start a Conversation
+    <svg class="ic" width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 3.5 13.5 8 9 12.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </button>
+</div>
+
+<main id="main">
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="hero" aria-label="Introduction">
+  <canvas id="heroCanvas" aria-hidden="true"></canvas>
+  <div class="hero-veil" aria-hidden="true"></div>
+  <span class="tick tl" aria-hidden="true"></span><span class="tick tr" aria-hidden="true"></span>
+  <span class="tick bl" aria-hidden="true"></span><span class="tick br" aria-hidden="true"></span>
+  <p class="hero-note mono hn-l" aria-hidden="true">Input · real-world problems</p>
+  <p class="hero-note mono hn-r" aria-hidden="true">Output · engineered structure</p>
+
+  <div class="container hero-in">
+    <p class="hero-tag mono rv">Inevit Digital Solutions — Technology &amp; IT Engineering</p>
+    <h1 class="rv" style="--d:.08s">Technology, <em>Engineered</em> Around Your Business.</h1>
+    <p class="hero-sub rv" style="--d:.16s">We design and build intelligent technology solutions that solve real business problems — from custom software and AI to automation, cybersecurity and system integration.</p>
+    <div class="hero-cta rv" style="--d:.24s">
+      <button class="btn btn-solid" data-modal>Start a Conversation
+        <svg class="ic" width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 3.5 13.5 8 9 12.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <a class="btn btn-ghost" href="#solutions">Explore Our Solutions</a>
+    </div>
+  </div>
+
+  <div class="hero-foot">
+    <span class="mono">Fig. 01 — Disorder → Structure</span>
+    <a class="hero-scroll" href="#problems" aria-label="Scroll to the next section">
+      <span class="mono">Scroll</span>
+      <span class="scroll-line" aria-hidden="true"><i></i></span>
+    </a>
+  </div>
+</section>
+
+<!-- ================= 01 PROBLEMS ================= -->
+<section class="sec sec-light" id="problems" aria-labelledby="problems-h">
+  <div class="container">
+    <div class="sec-head two-col">
+      <div>
+        <p class="label mono rv"><span>01</span>The Problem</p>
+        <h2 id="problems-h" class="rv" style="--d:.06s">Every business has a <em>better way</em> to work.</h2>
+      </div>
+      <p class="lead rv" style="--d:.12s">Manual processes, disconnected systems, repetitive work and technology gaps can slow a business down. We help turn those challenges into practical technology solutions.</p>
+    </div>
+
+    <ul class="probs" id="probs" data-stagger>
+      <li class="prob rv">
+        <button class="prob-head" aria-expanded="false">
+          <span class="p-num mono">01</span>
+          <span class="p-q">&ldquo;Too much manual work.&rdquo;</span>
+          <span class="p-ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 2.5v11M2.5 8h11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="prob-body"><div class="prob-inner"><div class="prob-a">
+          <span class="p-tag mono">Business Automation</span>
+          <p>Repetitive processes become automated workflows — handled by software, consistently, while your team does the work that actually needs a human.</p>
+        </div></div></div>
+      </li>
+      <li class="prob rv">
+        <button class="prob-head" aria-expanded="false">
+          <span class="p-num mono">02</span>
+          <span class="p-q">&ldquo;Our systems don&rsquo;t talk to each other.&rdquo;</span>
+          <span class="p-ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 2.5v11M2.5 8h11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="prob-body"><div class="prob-inner"><div class="prob-a">
+          <span class="p-tag mono">System &amp; API Integration</span>
+          <p>Disconnected tools become one connected environment, with data moving between systems automatically and reliably.</p>
+        </div></div></div>
+      </li>
+      <li class="prob rv">
+        <button class="prob-head" aria-expanded="false">
+          <span class="p-num mono">03</span>
+          <span class="p-q">&ldquo;We need a custom application.&rdquo;</span>
+          <span class="p-ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 2.5v11M2.5 8h11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="prob-body"><div class="prob-inner"><div class="prob-a">
+          <span class="p-tag mono">Custom Software</span>
+          <p>A purpose-built application designed around how your business actually works — not the other way around.</p>
+        </div></div></div>
+      </li>
+      <li class="prob rv">
+        <button class="prob-head" aria-expanded="false">
+          <span class="p-num mono">04</span>
+          <span class="p-q">&ldquo;Our application has security vulnerabilities.&rdquo;</span>
+          <span class="p-ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 2.5v11M2.5 8h11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="prob-body"><div class="prob-inner"><div class="prob-a">
+          <span class="p-tag mono">Vulnerability Remediation</span>
+          <p>Findings are triaged, fixed at the source, verified and retested — until the report is clean, and stays clean.</p>
+        </div></div></div>
+      </li>
+      <li class="prob rv">
+        <button class="prob-head" aria-expanded="false">
+          <span class="p-num mono">05</span>
+          <span class="p-q">&ldquo;We want to use AI, but don&rsquo;t know where to start.&rdquo;</span>
+          <span class="p-ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 2.5v11M2.5 8h11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="prob-body"><div class="prob-inner"><div class="prob-a">
+          <span class="p-tag mono">AI Solutions</span>
+          <p>A practical first use case, scoped around a real problem — with a working proof of concept instead of a slideware promise.</p>
+        </div></div></div>
+      </li>
+      <li class="prob rv">
+        <button class="prob-head" aria-expanded="false">
+          <span class="p-num mono">06</span>
+          <span class="p-q">&ldquo;Our business has outgrown spreadsheets.&rdquo;</span>
+          <span class="p-ico" aria-hidden="true"><svg width="16" height="16" viewBox="0 0 16 16"><path d="M8 2.5v11M2.5 8h11" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="prob-body"><div class="prob-inner"><div class="prob-a">
+          <span class="p-tag mono">Web Applications &amp; Platforms</span>
+          <p>Spreadsheets become a secure, multi-user platform — with structure, permissions and reporting built in.</p>
+        </div></div></div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= 02 SOLUTIONS ================= -->
+<section class="sec sec-dark" id="solutions" aria-labelledby="sol-h">
+  <div class="container">
+    <div class="sec-head">
+      <p class="label mono rv"><span>02</span>Capabilities</p>
+      <h2 id="sol-h" class="rv" style="--d:.06s">Built around <em>your problem.</em></h2>
+      <p class="lead rv" style="--d:.12s">Not a menu to pick from — a set of engineering disciplines we combine around the problem you bring us.</p>
+    </div>
+    <div class="sol-grid">
+      <ol class="sol-list" id="solList" role="tablist" aria-label="Capabilities" data-stagger>
+        <li class="rv"><button class="sol-item" role="tab" data-i="0"><span class="mono">01</span>Custom Software</button></li>
+        <li class="rv"><button class="sol-item" role="tab" data-i="1"><span class="mono">02</span>AI Solutions</button></li>
+        <li class="rv"><button class="sol-item" role="tab" data-i="2"><span class="mono">03</span>Business Automation</button></li>
+        <li class="rv"><button class="sol-item" role="tab" data-i="3"><span class="mono">04</span>System &amp; API Integration</button></li>
+        <li class="rv"><button class="sol-item" role="tab" data-i="4"><span class="mono">05</span>Web Applications &amp; Platforms</button></li>
+        <li class="rv"><button class="sol-item" role="tab" data-i="5"><span class="mono">06</span>Data &amp; Business Intelligence</button></li>
+        <li class="rv"><button class="sol-item" role="tab" data-i="6"><span class="mono">07</span>Cybersecurity</button></li>
+        <li class="rv"><button class="sol-item" role="tab" data-i="7"><span class="mono">08</span>Application Vulnerability Remediation</button></li>
+        <li class="rv"><button class="sol-item" role="tab" data-i="8"><span class="mono">09</span>IT Consulting</button></li>
+        <li class="rv"><button class="sol-item" role="tab" data-i="9"><span class="mono">10</span>Digital Transformation</button></li>
+      </ol>
+      <div class="sol-panel rv" role="tabpanel" id="solPanel">
+        <div class="sol-top mono"><span id="solIdx">01</span><span class="sol-prog"><i id="solProg"></i></span><span>/ 10</span></div>
+        <div class="sol-motif" id="solMotif" aria-hidden="true"></div>
+        <div class="sol-swap" id="solSwap">
+          <h3 id="solName"></h3>
+          <p id="solDesc"></p>
+          <ul class="sol-tags" id="solTags"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 03 PROCESS ================= -->
+<section class="proc" id="process" aria-labelledby="proc-h">
+  <div class="proc-pin">
+    <div class="container proc-head">
+      <p class="label mono rv"><span>03</span>How We Think</p>
+      <h2 id="proc-h" class="rv" style="--d:.06s">We don&rsquo;t start with technology.<br><em>We start with the problem.</em></h2>
+    </div>
+    <div class="proc-viewport">
+      <div class="proc-track" id="procTrack">
+        <div class="proc-line" aria-hidden="true"><i id="procFill"><b id="procDot"></b></i></div>
+
+        <article class="pstep">
+          <p class="ps-num mono" aria-hidden="true">01</p>
+          <h3>Understand</h3>
+          <p>We spend time inside the business first — the people, the process and the actual problem, not just the symptom reported on the surface.</p>
+          <p class="ps-meta mono">stakeholders · process · context</p>
+        </article>
+        <div class="proc-sep" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 16 16"><path d="M8 2.5v11M3.5 9 8 13.5 12.5 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+        <article class="pstep">
+          <p class="ps-num mono" aria-hidden="true">02</p>
+          <h3>Analyse</h3>
+          <p>We identify inefficiencies, risks, technical requirements and opportunities — and separate what&rsquo;s essential from what&rsquo;s noise.</p>
+          <p class="ps-meta mono">requirements · risks · constraints</p>
+        </article>
+        <div class="proc-sep" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 16 16"><path d="M8 2.5v11M3.5 9 8 13.5 12.5 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+        <article class="pstep">
+          <p class="ps-num mono" aria-hidden="true">03</p>
+          <h3>Engineer</h3>
+          <p>We design the right technology solution around the business — architecture, systems and a plan with honest trade-offs.</p>
+          <p class="ps-meta mono">architecture · design · trade-offs</p>
+        </article>
+        <div class="proc-sep" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 16 16"><path d="M8 2.5v11M3.5 9 8 13.5 12.5 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+        <article class="pstep">
+          <p class="ps-num mono" aria-hidden="true">04</p>
+          <h3>Build</h3>
+          <p>We develop, integrate, test and refine — in iterations you can see, review and start using early.</p>
+          <p class="ps-meta mono">develop · integrate · test · refine</p>
+        </article>
+        <div class="proc-sep" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 16 16"><path d="M8 2.5v11M3.5 9 8 13.5 12.5 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+        <article class="pstep">
+          <p class="ps-num mono" aria-hidden="true">05</p>
+          <h3>Improve</h3>
+          <p>After launch we measure, optimise and keep improving — a system that isn&rsquo;t learning is already falling behind.</p>
+          <p class="ps-meta mono">measure · optimise · evolve</p>
+        </article>
+        <div class="proc-sep" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 16 16"><path d="M8 2.5v11M3.5 9 8 13.5 12.5 9" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+
+        <p class="proc-end mono">Output → a system the business can rely on.</p>
+      </div>
+    </div>
+    <div class="proc-ruler container" aria-hidden="true">
+      <div class="ruler-row mono"><span>Process 01 — 05</span><span>Scroll →</span></div>
+      <div class="ruler"><i id="rulerFill"></i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 04 TRUST ================= -->
+<section class="sec sec-dark" id="trust" aria-labelledby="trust-h">
+  <div class="container trust-grid">
+    <div class="trust-left">
+      <p class="label mono rv"><span>04</span>Principles</p>
+      <h2 id="trust-h" class="rv" style="--d:.06s">Technology you can <em>build your business around.</em></h2>
+      <p class="lead rv" style="--d:.12s">No badge wall. No borrowed logos. The way we work is the proof — the same discipline on every engagement, from a two-week assessment to a platform years in the making.</p>
+      <p class="trust-note mono rv" style="--d:.18s">// <b>no</b> vanity metrics · <b>no</b> unverifiable claims — the working method is the reference</p>
+    </div>
+    <ul class="trust-list" data-stagger>
+      <li class="rv">
+        <span class="t-idx mono">P·01</span>
+        <div><h3>Professional engineering approach</h3><p>Requirements, architecture, review and testing — engineering discipline applied to every project, at every size.</p></div>
+        <svg class="ck" viewBox="0 0 18 18" width="18" height="18" aria-hidden="true"><path d="M3 9.5 7.5 14 15 4.5" pathLength="1" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </li>
+      <li class="rv">
+        <span class="t-idx mono">P·02</span>
+        <div><h3>Security-conscious development</h3><p>Security is part of how we build from day one — not a layer bolted on before launch.</p></div>
+        <svg class="ck" viewBox="0 0 18 18" width="18" height="18" aria-hidden="true"><path d="M3 9.5 7.5 14 15 4.5" pathLength="1" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </li>
+      <li class="rv">
+        <span class="t-idx mono">P·03</span>
+        <div><h3>Business-focused solutions</h3><p>Every technical decision traces back to a business outcome. If it doesn&rsquo;t serve the problem, we don&rsquo;t build it.</p></div>
+        <svg class="ck" viewBox="0 0 18 18" width="18" height="18" aria-hidden="true"><path d="M3 9.5 7.5 14 15 4.5" pathLength="1" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </li>
+      <li class="rv">
+        <span class="t-idx mono">P·04</span>
+        <div><h3>Clear communication</h3><p>Plain language, honest trade-offs, straight answers. You always know where your project stands — and why.</p></div>
+        <svg class="ck" viewBox="0 0 18 18" width="18" height="18" aria-hidden="true"><path d="M3 9.5 7.5 14 15 4.5" pathLength="1" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </li>
+      <li class="rv">
+        <span class="t-idx mono">P·05</span>
+        <div><h3>Scalable architecture</h3><p>Systems designed for where the business is going — not just where it is today.</p></div>
+        <svg class="ck" viewBox="0 0 18 18" width="18" height="18" aria-hidden="true"><path d="M3 9.5 7.5 14 15 4.5" pathLength="1" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </li>
+      <li class="rv">
+        <span class="t-idx mono">P·06</span>
+        <div><h3>Custom-built solutions</h3><p>Built for your actual problem. No templates pretending to fit, no licences you don&rsquo;t need.</p></div>
+        <svg class="ck" viewBox="0 0 18 18" width="18" height="18" aria-hidden="true"><path d="M3 9.5 7.5 14 15 4.5" pathLength="1" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </li>
+      <li class="rv">
+        <span class="t-idx mono">P·07</span>
+        <div><h3>Long-term technical partnership</h3><p>We stay accountable after launch — monitoring, maintaining and improving as the business grows.</p></div>
+        <svg class="ck" viewBox="0 0 18 18" width="18" height="18" aria-hidden="true"><path d="M3 9.5 7.5 14 15 4.5" pathLength="1" fill="none" stroke="var(--accent)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= 05 WORK ================= -->
+<section class="sec sec-light" id="work" aria-labelledby="work-h">
+  <div class="container">
+    <div class="sec-head">
+      <p class="label mono rv"><span>05</span>Selected Work</p>
+      <h2 id="work-h" class="rv" style="--d:.06s">Problems, engineered <em>end to end.</em></h2>
+      <p class="lead rv" style="--d:.12s">Every engagement follows the same arc — challenge, approach, solution, outcome. Two representative structures are shown below.</p>
+      <p class="case-note mono rv" style="--d:.18s">// representative engagements, anonymised — detailed references available on request</p>
+    </div>
+
+    <div class="case-tabs" role="tablist" aria-label="Case studies">
+      <button class="case-tab is-on" role="tab" id="tabA" aria-selected="true" aria-controls="caseA">Case 01 — Operations Platform</button>
+      <button class="case-tab" role="tab" id="tabB" aria-selected="false" aria-controls="caseB">Case 02 — Security Remediation</button>
+    </div>
+
+    <div class="case-panel show" id="caseA" role="tabpanel" aria-labelledby="tabA">
+      <div class="case-doc">
+        <div class="case-meta mono"><span>Engagement · OPS-01</span><span>Scope · Platform / Integration / Automation</span></div>
+        <div class="phase">
+          <span class="ph-n mono">01</span>
+          <div><h4 class="ph-t">The Challenge</h4>
+          <p>A growing operations team coordinated every order through spreadsheets, email and phone calls. Data lived in silos, errors were common, and nobody had a real-time view of the business.</p></div>
+        </div>
+        <div class="phase">
+          <span class="ph-n mono">02</span>
+          <div><h4 class="ph-t">The Approach</h4>
+          <p>We began with the process, not the technology — mapping how work actually flowed and where it stalled. Then we designed a phased plan the business could adopt without pausing operations.</p></div>
+        </div>
+        <div class="phase">
+          <span class="ph-n mono">03</span>
+          <div><h4 class="ph-t">The Solution</h4>
+          <p>A custom web platform with role-based access, integrated with the tools the team already used. Orders, inventory and reporting moved into one system, with automated handoffs replacing manual re-entry.</p></div>
+        </div>
+        <div class="phase ph-out">
+          <span class="ph-n mono">04</span>
+          <div><h4 class="ph-t">The Outcome</h4>
+          <p>One source of truth replaced scattered spreadsheets. Manual steps dropped sharply, errors surfaced before they reached customers — and the platform now scales to new sites without rework.</p></div>
+        </div>
+      </div>
+      <figure class="case-fig">
+        <svg class="diagram" viewBox="0 0 540 380" role="img" aria-label="Architecture diagram: disconnected manual inputs flowing through an integration layer into an operations platform">
+          <rect x="24" y="56" width="128" height="46" rx="8" stroke-dasharray="5 5"/>
+          <text x="88" y="76" text-anchor="middle">EMAIL / PHONE</text>
+          <text x="88" y="90" text-anchor="middle" class="dim">MANUAL INTAKE</text>
+          <rect x="24" y="167" width="128" height="46" rx="8" stroke-dasharray="5 5"/>
+          <text x="88" y="187" text-anchor="middle">SPREADSHEETS</text>
+          <text x="88" y="201" text-anchor="middle" class="dim">SCATTERED DATA</text>
+          <rect x="24" y="278" width="128" height="46" rx="8" stroke-dasharray="5 5"/>
+          <text x="88" y="298" text-anchor="middle">STANDALONE TOOLS</text>
+          <text x="88" y="312" text-anchor="middle" class="dim">NO SHARING</text>
+          <path class="flow" d="M152 79C202 79 202 184 230 187"/>
+          <path class="flow" d="M152 190h74"/>
+          <path class="flow" d="M152 301C202 301 202 196 230 193"/>
+          <path d="M220 184l8 6-8 6"/>
+          <circle cx="268" cy="190" r="38"/>
+          <text x="268" y="187" text-anchor="middle">INEVIT</text>
+          <text x="268" y="200" text-anchor="middle">INTEGRATION</text>
+          <path class="flow a" d="M306 190h56"/>
+          <path class="a" d="M354 184l8 6-8 6"/>
+          <circle class="f pulse" cx="368" cy="190" r="3"/>
+          <rect class="a-st" x="372" y="86" width="144" height="208" rx="12"/>
+          <text x="444" y="112" text-anchor="middle">OPERATIONS</text>
+          <text x="444" y="126" text-anchor="middle">PLATFORM</text>
+          <rect x="388" y="142" width="112" height="34" rx="6"/>
+          <text x="444" y="163" text-anchor="middle">ORDERS</text>
+          <rect x="388" y="186" width="112" height="34" rx="6"/>
+          <text x="444" y="207" text-anchor="middle">INVENTORY</text>
+          <rect class="a-st" x="388" y="230" width="112" height="34" rx="6"/>
+          <text x="444" y="251" text-anchor="middle">DASHBOARDS</text>
+        </svg>
+        <figcaption class="mono">Fig. 02 — Target architecture · orders &amp; operations</figcaption>
+      </figure>
+    </div>
+
+    <div class="case-panel" id="caseB" role="tabpanel" aria-labelledby="tabB" hidden>
+      <div class="case-doc">
+        <div class="case-meta mono"><span>Engagement · SEC-02</span><span>Scope · Assessment / Remediation / Retest</span></div>
+        <div class="phase">
+          <span class="ph-n mono">01</span>
+          <div><h4 class="ph-t">The Challenge</h4>
+          <p>A customer-facing application was preparing for a major release — with a development history that left its security posture unknown and its team exposed.</p></div>
+        </div>
+        <div class="phase">
+          <span class="ph-n mono">02</span>
+          <div><h4 class="ph-t">The Approach</h4>
+          <p>A structured security assessment: threat-surface mapping, an OWASP-aligned review of code and configuration, and a remediation plan prioritised by real risk — not generic checklists.</p></div>
+        </div>
+        <div class="phase">
+          <span class="ph-n mono">03</span>
+          <div><h4 class="ph-t">The Solution</h4>
+          <p>We remediated the vulnerabilities at the source — authentication flaws, injection risks and API access control — hardened the environment, and established secure patterns for future development.</p></div>
+        </div>
+        <div class="phase ph-out">
+          <span class="ph-n mono">04</span>
+          <div><h4 class="ph-t">The Outcome</h4>
+          <p>Every finding was fixed, verified and retested. The application shipped with a documented security baseline — and the team kept the practices that got it there.</p></div>
+        </div>
+      </div>
+      <figure class="case-fig">
+        <svg class="diagram" viewBox="0 0 540 380" role="img" aria-label="Security assessment diagram: a client, API gateway, auth service, application services and database, with all identified findings remediated">
+          <rect x="16" y="30" width="508" height="300" rx="12" stroke-dasharray="6 6"/>
+          <text x="32" y="56">ASSESSMENT SCOPE — OWASP ALIGNED</text>
+          <rect x="36" y="150" width="110" height="46" rx="8"/>
+          <text x="91" y="177" text-anchor="middle">WEB CLIENT</text>
+          <path d="M146 173h32"/><path d="M170 167l8 6-8 6"/>
+          <rect x="186" y="150" width="118" height="46" rx="8"/>
+          <text x="245" y="177" text-anchor="middle">API GATEWAY</text>
+          <path d="M304 161C334 155 348 106 372 94"/>
+          <path d="M304 185C334 191 348 240 372 252"/>
+          <path d="M304 173h60"/><path d="M356 167l8 6-8 6"/>
+          <rect x="376" y="70" width="128" height="46" rx="8"/>
+          <text x="440" y="97" text-anchor="middle">AUTH SERVICE</text>
+          <path d="M364 87l8 6-8 6"/>
+          <rect x="376" y="150" width="128" height="46" rx="8"/>
+          <text x="440" y="177" text-anchor="middle">APP SERVICES</text>
+          <rect x="376" y="230" width="128" height="46" rx="8"/>
+          <text x="440" y="257" text-anchor="middle">DATABASE</text>
+          <path d="M364 246l8 6-8 6"/>
+          <g transform="translate(340,118)"><circle r="8" class="a"/><path class="a" d="M-3.5 .5l2.5 2.8 5-6"/></g>
+          <text x="326" y="121" text-anchor="end">A01 · AUTH</text>
+          <g transform="translate(338,173)"><circle r="8" class="a"/><path class="a" d="M-3.5 .5l2.5 2.8 5-6"/></g>
+          <text x="324" y="200" text-anchor="end">A02 · API ACCESS</text>
+          <g transform="translate(340,230)"><circle r="8" class="a"/><path class="a" d="M-3.5 .5l2.5 2.8 5-6"/></g>
+          <text x="326" y="233" text-anchor="end">A03 · INJECTION</text>
+          <rect class="f" x="32" y="300" width="8" height="8"/>
+          <text x="48" y="308">ALL FINDINGS REMEDIATED · VERIFIED BY RETEST</text>
+        </svg>
+        <figcaption class="mono">Fig. 03 — Findings, fixed at the source &amp; retested</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 06 SECURITY ================= -->
+<section class="sec sec-dark" id="security" aria-labelledby="sec-h">
+  <div class="container">
+    <div class="sec-head">
+      <p class="label mono rv"><span>06</span>Security</p>
+      <h2 id="sec-h" class="rv" style="--d:.06s">Build securely. Fix vulnerabilities.<br><em>Stay resilient.</em></h2>
+      <p class="lead rv" style="--d:.12s">Security is not a checkbox before launch. It&rsquo;s an engineering discipline — assessment, remediation and retesting, applied with the same rigour we bring to any system we build.</p>
+    </div>
+    <div class="sec-grid">
+      <div class="rv">
+        <p class="list-cap mono">Security capabilities</p>
+        <ol class="sec-list">
+          <li><span class="sq" aria-hidden="true"></span>Application security assessment</li>
+          <li><span class="sq" aria-hidden="true"></span>Vulnerability identification</li>
+          <li><span class="sq" aria-hidden="true"></span>Application vulnerability remediation</li>
+          <li><span class="sq" aria-hidden="true"></span>Secure code review</li>
+          <li><span class="sq" aria-hidden="true"></span>OWASP vulnerability remediation</li>
+          <li><span class="sq" aria-hidden="true"></span>API security</li>
+          <li><span class="sq" aria-hidden="true"></span>Authentication &amp; authorization</li>
+          <li><span class="sq" aria-hidden="true"></span>Security hardening</li>
+          <li><span class="sq" aria-hidden="true"></span>Vulnerability retesting</li>
+        </ol>
+      </div>
+      <figure class="sec-fig rv" style="--d:.1s">
+        <svg class="arch" viewBox="0 0 520 340" role="img" aria-label="Layered application architecture — client, services and data — being swept by a security scan">
+          <rect x="136" y="26" width="300" height="272" rx="10" stroke-dasharray="6 6" opacity=".5"/>
+          <text x="436" y="18" text-anchor="end">ASSESSMENT SCOPE</text>
+          <g class="layer l1"><path d="M170 44 330 44 410 112 250 112 Z"/></g>
+          <g class="layer l2"><path d="M170 128 330 128 410 196 250 196 Z"/></g>
+          <g class="layer l3"><path d="M170 212 330 212 410 280 250 280 Z"/></g>
+          <line x1="170" y1="44" x2="170" y2="212" opacity=".4"/>
+          <line x1="410" y1="112" x2="410" y2="280" opacity=".4"/>
+          <text x="30" y="82">CLIENT</text>
+          <text x="30" y="166">API &amp; SERVICES</text>
+          <text x="30" y="250">DATA</text>
+          <rect x="444" y="146" width="72" height="36" rx="6" stroke-dasharray="4 4"/>
+          <text x="480" y="167" text-anchor="middle">EXT. API</text>
+          <line x1="408" y1="178" x2="444" y2="166" stroke-dasharray="4 4"/>
+          <circle class="fdot" cx="252" cy="78" r="3"/>
+          <circle class="fdot fd2" cx="300" cy="162" r="3"/>
+          <circle class="fdot fd3" cx="282" cy="246" r="3"/>
+          <rect class="scan" x="150" y="58" width="280" height="2"/>
+        </svg>
+        <p class="arch-legend mono">Assess <b>→</b> Remediate <b>→</b> Retest — continuous, not one-off</p>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 07 AI ================= -->
+<section class="sec sec-light" id="ai" aria-labelledby="ai-h">
+  <div class="container ai-grid">
+    <div class="ai-left">
+      <p class="label mono rv"><span>07</span>Applied AI</p>
+      <h2 id="ai-h" class="rv" style="--d:.06s">AI that solves a <em>real problem.</em></h2>
+      <p class="lead rv" style="--d:.12s">We don&rsquo;t start with models. We start with the problem — and use AI only where it genuinely beats the alternatives. The result is AI that earns its place in your workflow.</p>
+      <blockquote class="pull rv" style="--d:.18s">AI should solve a business problem — not simply exist because it is AI.</blockquote>
+      <ul class="sr-only">
+        <li>Intelligent business assistants — grounded in your own data and processes.</li>
+        <li>AI-powered document processing — extract, classify and route information automatically.</li>
+        <li>Knowledge and search systems — answers from your own documentation and data.</li>
+        <li>Customer-support automation — routine requests resolved, complex ones escalated to people.</li>
+        <li>Business intelligence — natural-language access to the numbers that matter.</li>
+        <li>Custom AI applications — purpose-built where off-the-shelf tools fall short.</li>
+      </ul>
+    </div>
+    <div class="ai-net-wrap rv" style="--d:.1s">
+      <svg class="ai-net" id="aiNet" viewBox="0 0 480 400" role="group" aria-label="Interactive map of practical AI use cases">
+        <circle class="ring" cx="240" cy="200" r="170"/>
+        <g class="bl-group" aria-hidden="true">
+          <line class="bl" x1="100" y1="84" x2="258" y2="52"/><line class="bl" x1="258" y1="52" x2="392" y2="118"/>
+          <line class="bl" x1="392" y1="118" x2="336" y2="264"/><line class="bl" x1="336" y1="264" x2="162" y2="318"/>
+          <line class="bl" x1="162" y1="318" x2="62" y2="206"/><line class="bl" x1="62" y1="206" x2="100" y2="84"/>
+          <line class="bl" x1="258" y1="52" x2="162" y2="318"/>
+        </g>
+        <g class="ai-g" tabindex="0" aria-label="Intelligent business assistants">
+          <line class="sl" x1="100" y1="84" x2="62" y2="58"/><line class="sl" x1="100" y1="84" x2="140" y2="58"/><line class="sl" x1="100" y1="84" x2="76" y2="128"/>
+          <circle class="sat" cx="62" cy="58" r="2.4"/><circle class="sat" cx="140" cy="58" r="2.4"/><circle class="sat" cx="76" cy="128" r="2.4"/>
+          <circle class="main" cx="100" cy="84" r="9"/>
+          <text x="104" y="116" text-anchor="middle">BUSINESS</text><text x="104" y="128" text-anchor="middle">ASSISTANTS</text>
+        </g>
+        <g class="ai-g" tabindex="0" aria-label="AI-powered document processing">
+          <line class="sl" x1="258" y1="52" x2="222" y2="26"/><line class="sl" x1="258" y1="52" x2="298" y2="30"/><line class="sl" x1="258" y1="52" x2="206" y2="80"/>
+          <circle class="sat" cx="222" cy="26" r="2.4"/><circle class="sat" cx="298" cy="30" r="2.4"/><circle class="sat" cx="206" cy="80" r="2.4"/>
+          <circle class="main" cx="258" cy="52" r="9"/>
+          <text x="266" y="82" text-anchor="middle">DOCUMENT</text><text x="266" y="94" text-anchor="middle">PROCESSING</text>
+        </g>
+        <g class="ai-g" tabindex="0" aria-label="Knowledge and search systems">
+          <line class="sl" x1="392" y1="118" x2="426" y2="84"/><line class="sl" x1="392" y1="118" x2="434" y2="146"/><line class="sl" x1="392" y1="118" x2="352" y2="104"/>
+          <circle class="sat" cx="426" cy="84" r="2.4"/><circle class="sat" cx="434" cy="146" r="2.4"/><circle class="sat" cx="352" cy="104" r="2.4"/>
+          <circle class="main" cx="392" cy="118" r="9"/>
+          <text x="388" y="150" text-anchor="middle">KNOWLEDGE</text><text x="388" y="162" text-anchor="middle">&amp; SEARCH</text>
+        </g>
+        <g class="ai-g" tabindex="0" aria-label="Customer-support automation">
+          <line class="sl" x1="336" y1="264" x2="378" y2="236"/><line class="sl" x1="336" y1="264" x2="380" y2="298"/><line class="sl" x1="336" y1="264" x2="292" y2="242"/>
+          <circle class="sat" cx="378" cy="236" r="2.4"/><circle class="sat" cx="380" cy="298" r="2.4"/><circle class="sat" cx="292" cy="242" r="2.4"/>
+          <circle class="main" cx="336" cy="264" r="9"/>
+          <text x="336" y="296" text-anchor="middle">SUPPORT</text><text x="336" y="308" text-anchor="middle">AUTOMATION</text>
+        </g>
+        <g class="ai-g" tabindex="0" aria-label="Business intelligence">
+          <line class="sl" x1="162" y1="318" x2="108" y2="330"/><line class="sl" x1="162" y1="318" x2="214" y2="336"/><line class="sl" x1="162" y1="318" x2="150" y2="272"/>
+          <circle class="sat" cx="108" cy="330" r="2.4"/><circle class="sat" cx="214" cy="336" r="2.4"/><circle class="sat" cx="150" cy="272" r="2.4"/>
+          <circle class="main" cx="162" cy="318" r="9"/>
+          <text x="166" y="350" text-anchor="middle">BUSINESS</text><text x="166" y="362" text-anchor="middle">INTELLIGENCE</text>
+        </g>
+        <g class="ai-g" tabindex="0" aria-label="Custom AI applications">
+          <line class="sl" x1="62" y1="206" x2="26" y2="172"/><line class="sl" x1="62" y1="206" x2="26" y2="238"/><line class="sl" x1="62" y1="206" x2="110" y2="180"/>
+          <circle class="sat" cx="26" cy="172" r="2.4"/><circle class="sat" cx="26" cy="238" r="2.4"/><circle class="sat" cx="110" cy="180" r="2.4"/>
+          <circle class="main" cx="62" cy="206" r="9"/>
+          <text x="70" y="240" text-anchor="middle">CUSTOM AI</text><text x="70" y="252" text-anchor="middle">APPLICATIONS</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 08 CONTACT ================= -->
+<section class="sec sec-dark contact" id="contact" aria-labelledby="cta-h">
+  <svg class="cta-dial" id="ctaDial" viewBox="0 0 600 600" aria-hidden="true"></svg>
+  <div class="container cta-in">
+    <p class="label mono rv"><span>08</span>Start Here</p>
+    <h2 class="cta-h rv" id="cta-h" style="--d:.06s">Have a problem <em>worth solving?</em></h2>
+    <p class="cta-sub rv" style="--d:.12s">Let&rsquo;s turn it into a technology solution. No obligation, no jargon — just a technical conversation about the problem.</p>
+    <div class="cta-btns rv" style="--d:.18s">
+      <button class="btn btn-solid btn-lg" data-modal>Start a Conversation
+        <svg class="ic" width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 3.5 13.5 8 9 12.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button class="btn btn-ghost btn-lg" data-modal data-subject="Project enquiry">Tell Us About Your Project</button>
+    </div>
+    <button class="mail-line mono rv" id="copyMail" style="--d:.24s">inevitdigitalsolutions@gmail.com — click to copy</button>
+  </div>
+</section>
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+  <div class="container foot-top">
+    <div class="foot-brand">
+      <p class="foot-word">Inevit<i>.</i></p>
+      <p class="mono">Tell us the problem.<br>We&rsquo;ll engineer the solution.</p>
+    </div>
+    <nav class="foot-col" aria-label="Footer — navigate">
+      <h4>Navigate</h4>
+      <a href="#problems">The Problem</a>
+      <a href="#solutions">Solutions</a>
+      <a href="#process">Process</a>
+      <a href="#work">Work</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <nav class="foot-col" aria-label="Footer — capabilities">
+      <h4>Capabilities</h4>
+      <a href="#solutions">Custom Software</a>
+      <a href="#ai">AI Solutions</a>
+      <a href="#solutions">Automation &amp; Integration</a>
+      <a href="#security">Cybersecurity</a>
+    </nav>
+    <div class="foot-col">
+      <h4>Contact</h4>
+      <a href="mailto:inevitdigitalsolutions@gmail.com">inevitdigitalsolutions@gmail.com</a>
+      <a href="#contact">Start a conversation</a>
+    </div>
+  </div>
+  <div class="container foot-bot mono">
+    <span>© <span id="yr">2025</span> Inevit Digital Solutions</span>
+    <span>Engineered problem-first</span>
+    <a class="to-top" href="#top">Back to top
+      <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><path d="M8 13.5v-11M3.5 7 8 2.5 12.5 7" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </a>
+  </div>
+</footer>
+
+<!-- ================= MODAL & TOAST ================= -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-h" aria-hidden="true">
+  <div class="modal-back" data-close></div>
+  <div class="modal-card">
+    <button class="modal-x" data-close aria-label="Close dialog">
+      <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M2 2l10 10M12 2 2 12" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+    </button>
+    <p class="modal-kick mono" id="modalKick">General enquiry</p>
+    <h3 id="modal-h">Tell us the problem.</h3>
+    <form id="ctForm" novalidate>
+      <label class="f"><span class="lb">Name</span><input id="fName" name="name" required autocomplete="name" placeholder="Your name"></label>
+      <label class="f"><span class="lb">Email</span><input id="fEmail" name="email" type="email" required autocomplete="email" placeholder="you@company.com"></label>
+      <label class="f"><span class="lb">Company <i>· optional</i></span><input id="fCo" name="company" autocomplete="organization" placeholder="Company / role"></label>
+      <label class="f"><span class="lb">What&rsquo;s the problem?</span><textarea id="fMsg" name="message" rows="4" required placeholder="Describe the problem, the process it affects, and what &lsquo;better&rsquo; looks like."></textarea></label>
+      <button class="btn btn-solid w100" type="submit">Compose Email
+        <svg class="ic" width="15" height="15" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 3.5 13.5 8 9 12.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <p class="modal-note mono">Opens your email client — nothing is stored on this page.</p>
+    </form>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+'use strict';
+(function(){
+  const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $  = s => document.querySelector(s);
+  const $$ = s => [...document.querySelectorAll(s)];
+  const pad = n => String(n).padStart(2,'0');
+
+  /* ---------- scroll: nav state + progress bar ---------- */
+  const nav = $('#nav'), pbar = $('#progressBar');
+  let sTick = false;
+  function onScroll(){
+    nav.classList.toggle('scrolled', scrollY > 24);
+    const max = document.documentElement.scrollHeight - innerHeight;
+    pbar.style.transform = 'scaleX(' + (max > 0 ? scrollY / max : 0) + ')';
+    sTick = false;
+  }
+  addEventListener('scroll', () => { if(!sTick){ sTick = true; requestAnimationFrame(onScroll); } }, {passive:true});
+  onScroll();
+
+  /* ---------- reveal on scroll ---------- */
+  $$('[data-stagger]').forEach(w => [...w.querySelectorAll('.rv')].forEach((el,i) => el.style.transitionDelay = (i*70)+'ms'));
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  }), {threshold:.12, rootMargin:'0px 0px -6% 0px'});
+  $$('.rv').forEach(el => io.observe(el));
+
+  /* ---------- active nav link ---------- */
+  const navA = {};
+  $$('.nav-links a').forEach(a => navA[a.getAttribute('href').slice(1)] = a);
+  const so = new IntersectionObserver(es => es.forEach(e => {
+    const a = navA[e.target.id];
+    if(a && e.isIntersecting){ Object.values(navA).forEach(x => x.classList.remove('act')); a.classList.add('act'); }
+  }), {rootMargin:'-40% 0px -55% 0px'});
+  ['solutions','process','work','security','ai'].forEach(id => { const el = document.getElementById(id); if(el) so.observe(el); });
+
+  /* ---------- mobile menu ---------- */
+  const burger = $('#burger'), mnav = $('#mnav');
+  let menuOpen = false;
+  function setMenu(o){
+    menuOpen = o;
+    burger.classList.toggle('open', o);
+    burger.setAttribute('aria-expanded', o);
+    burger.setAttribute('aria-label', o ? 'Close menu' : 'Open menu');
+    mnav.classList.toggle('open', o);
+    mnav.setAttribute('aria-hidden', !o);
+    document.body.classList.toggle('lock', o);
+  }
+  burger.addEventListener('click', () => setMenu(!menuOpen));
+  mnav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+
+  /* ---------- problem rows (touch / keyboard) ---------- */
+  $$('.prob-head').forEach(btn => btn.addEventListener('click', () => {
+    const li = btn.closest('.prob'), open = li.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+  }));
+
+  /* ---------- capabilities: data, motifs, master-detail ---------- */
+  const MOT = {
+    software:`<rect x="16" y="22" width="128" height="106" rx="8"/><line x1="16" y1="46" x2="144" y2="46"/><circle class="f" cx="30" cy="34" r="2.4"/><circle cx="40" cy="34" r="2.4"/><circle cx="50" cy="34" r="2.4"/><path d="M44 74l-16 14 16 14"/><path d="M76 74l16 14-16 14"/><line class="a" x1="66" y1="66" x2="54" y2="110"/><path d="M160 66h44M160 88h32" opacity=".45"/>`,
+    ai:`<circle class="a" cx="110" cy="75" r="14"/><circle cx="40" cy="35" r="7"/><circle cx="180" cy="30" r="7"/><circle cx="35" cy="115" r="7"/><circle cx="185" cy="112" r="7"/><circle cx="110" cy="18" r="7"/><circle cx="110" cy="132" r="7"/><line x1="52" y1="41" x2="97" y2="66"/><line x1="168" y1="36" x2="123" y2="66"/><line x1="48" y1="109" x2="97" y2="84"/><line x1="172" y1="106" x2="123" y2="84"/><line x1="110" y1="25" x2="110" y2="61"/><line x1="110" y1="89" x2="110" y2="125"/>`,
+    automation:`<circle cx="60" cy="75" r="34" stroke-dasharray="4 6"/><circle class="f" cx="60" cy="75" r="6"/><rect x="130" y="45" width="70" height="60" rx="8"/><line x1="146" y1="65" x2="184" y2="65"/><line x1="146" y1="80" x2="176" y2="80"/><line class="a" x1="146" y1="95" x2="166" y2="95"/><path d="M98 60h18"/><path d="M110 54l8 6-8 6"/><path d="M98 90h18"/><path d="M110 84l8 6-8 6"/>`,
+    integration:`<rect x="16" y="24" width="52" height="30" rx="6"/><rect x="16" y="60" width="52" height="30" rx="6"/><rect x="16" y="96" width="52" height="30" rx="6"/><path d="M102 39c14 0 8 36 14 36"/><path d="M102 75h14"/><path d="M102 111c14 0 8-36 14-36"/><circle class="a" cx="122" cy="75" r="9"/><line x1="131" y1="75" x2="158" y2="75"/><rect x="160" y="55" width="44" height="40" rx="6"/>`,
+    platform:`<rect x="20" y="26" width="150" height="100" rx="8"/><line x1="20" y1="50" x2="170" y2="50"/><circle class="f" cx="32" cy="38" r="2.4"/><circle cx="42" cy="38" r="2.4"/><circle cx="52" cy="38" r="2.4"/><rect x="34" y="62" width="56" height="50" rx="4"/><line x1="102" y1="66" x2="156" y2="66"/><line x1="102" y1="80" x2="148" y2="80"/><line class="a" x1="102" y1="94" x2="156" y2="94"/><line x1="102" y1="108" x2="138" y2="108"/>`,
+    data:`<line x1="24" y1="126" x2="200" y2="126"/><rect x="40" y="96" width="16" height="30" rx="2"/><rect x="72" y="82" width="16" height="44" rx="2"/><rect x="104" y="88" width="16" height="38" rx="2"/><rect class="a" x="136" y="62" width="16" height="64" rx="2"/><path class="a" d="M40 70l36-22 34 12 46-34" opacity=".8"/><circle class="f" cx="156" cy="26" r="3"/>`,
+    cyber:`<path d="M85 24l40 14v34c0 30-18 48-40 56-22-8-40-26-40-56V38z"/><path class="a" d="M68 74l12 12 24-26"/><path d="M160 44h44M160 66h32M160 88h40" opacity=".4"/>`,
+    remediation:`<rect x="20" y="34" width="100" height="82" rx="8"/><line x1="34" y1="58" x2="76" y2="58"/><line x1="34" y1="74" x2="92" y2="74"/><line x1="34" y1="90" x2="66" y2="90"/><circle cx="140" cy="78" r="26"/><line x1="160" y1="98" x2="182" y2="120"/><path class="a" d="M128 78l8 8 16-16"/>`,
+    consulting:`<rect x="24" y="96" width="172" height="30" rx="6"/><rect x="46" y="56" width="56" height="28" rx="6"/><rect x="118" y="56" width="56" height="28" rx="6"/><path d="M74 84v12M146 84v12"/><circle class="a" cx="110" cy="28" r="10"/><path d="M110 18v-8M120 28h8M110 38v8M100 28h-8" opacity=".6"/>`,
+    transform:`<path d="M24 96c18-40 26 40 44 0s26 40 44 0"/><line class="a" x1="128" y1="96" x2="196" y2="96"/><path class="a" d="M188 88l10 8-10 8"/>`
+  };
+  const SOL = [
+    {n:'Custom Software', d:'Purpose-built applications designed around specific business requirements — from internal tools to customer-facing products.', t:['Web applications','Internal tools','Product MVPs'], m:'software'},
+    {n:'AI Solutions', d:'Intelligent applications and AI-powered capabilities designed for practical business use — scoped around a problem, not a trend.', t:['LLM integration','Document AI','Assistants'], m:'ai'},
+    {n:'Business Automation', d:'Transform repetitive manual processes into efficient automated workflows that run reliably without supervision.', t:['Workflows','Approval chains','Scheduled jobs'], m:'automation'},
+    {n:'System & API Integration', d:'Connect systems, applications and data so they work together seamlessly — including the legacy parts nobody wants to touch.', t:['REST & GraphQL','Legacy systems','Data syncs'], m:'integration'},
+    {n:'Web Applications & Platforms', d:'Build secure, scalable web-based applications and business platforms your team and customers can depend on.', t:['Multi-tenant','Role-based access','Portals'], m:'platform'},
+    {n:'Data & Business Intelligence', d:'Turn business data into useful dashboards, reports and actionable insights people actually look at.', t:['Dashboards','Reporting','Data pipelines'], m:'data'},
+    {n:'Cybersecurity', d:'Assess, strengthen and improve the security of applications, systems and technology environments.', t:['Assessments','Hardening','Secure SDLC'], m:'cyber'},
+    {n:'Application Vulnerability Remediation', d:'Identify, understand and remediate application security vulnerabilities — followed by verification and independent retesting.', t:['OWASP Top 10','Code review','Retesting'], m:'remediation'},
+    {n:'IT Consulting', d:'Help businesses make better technology decisions through technical assessment, architecture, planning and solution strategy.', t:['Architecture','Due diligence','Roadmaps'], m:'consulting'},
+    {n:'Digital Transformation', d:'Modernize inefficient processes and turn them into structured digital workflows and systems.', t:['Process design','Digital workflows','Change management'], m:'transform'}
+  ];
+  const solList = $('#solList'), solBtns = $$('.sol-item'), solPanel = $('#solPanel');
+  const solIdx = $('#solIdx'), solSwap = $('#solSwap'), solName = $('#solName'),
+        solDesc = $('#solDesc'), solTags = $('#solTags'), solMotif = $('#solMotif'),
+        solProg = $('#solProg');
+  let solI = -1, solAuto = !RM, solVis = false, lastSol = 0, fadeT = null;
+  const SOL_DUR = 4600;
+
+  function paintSol(i){
+    const s = SOL[i];
+    solIdx.textContent = pad(i+1);
+    solName.textContent = s.n;
+    solDesc.textContent = s.d;
+    solTags.innerHTML = s.t.map(t => '<li>'+t+'</li>').join('');
+    solMotif.innerHTML = '<svg viewBox="0 0 220 150" aria-hidden="true">'+MOT[s.m]+'</svg>';
+  }
+  function setSol(i, instant){
+    if(i === solI) { lastSol = performance.now(); return; }
+    solI = i;
+    solBtns.forEach((b,k) => {
+      b.setAttribute('aria-selected', k === i);
+      b.setAttribute('tabindex', k === i ? '0' : '-1');
+    });
+    clearTimeout(fadeT);
+    if(instant || RM){ paintSol(i); lastSol = performance.now(); return; }
+    solSwap.classList.add('fade');
+    fadeT = setTimeout(() => { paintSol(i); solSwap.classList.remove('fade'); }, 230);
+    lastSol = performance.now();
+  }
+  solBtns.forEach(b => {
+    const go = () => { solAuto = false; solPanel.classList.add('manual'); setSol(+b.dataset.i); };
+    b.addEventListener('click', go);
+    b.addEventListener('pointerenter', go);
+  });
+  solList.addEventListener('focusin', () => { solAuto = false; solPanel.classList.add('manual'); });
+  solList.addEventListener('keydown', e => {
+    const i = solBtns.indexOf(document.activeElement);
+    if(i < 0) return;
+    let n = null;
+    if(e.key === 'ArrowDown' || e.key === 'ArrowRight') n = (i+1) % solBtns.length;
+    if(e.key === 'ArrowUp'   || e.key === 'ArrowLeft')  n = (i-1+solBtns.length) % solBtns.length;
+    if(n !== null){ e.preventDefault(); solBtns[n].focus(); setSol(n); }
+  });
+  new IntersectionObserver(es => { solVis = es[0].isIntersecting; }, {threshold:.15}).observe($('#solutions'));
+  setSol(0, true);
+
+  /* ---------- process: pinned horizontal scroll ---------- */
+  const proc = $('#process'), pv = proc.querySelector('.proc-viewport'),
+        track = $('#procTrack'), procFill = $('#procFill'), rulerFill = $('#rulerFill');
+  let procOn = true, ovf = 0, cur = 0;
+  function procLayout(){
+    procOn = innerWidth > 920;
+    if(!procOn){ proc.style.height = ''; track.style.transform = ''; procFill.style.width = '0'; rulerFill.style.width = '0'; return; }
+    ovf = Math.max(0, track.offsetWidth - pv.clientWidth);
+    proc.style.height = (innerHeight + ovf) + 'px';
+  }
+  function procUpdate(){
+    if(!procOn) return;
+    const r = proc.getBoundingClientRect();
+    const total = proc.offsetHeight - innerHeight;
+    const p = total > 0 ? Math.min(1, Math.max(0, -r.top / total)) : 0;
+    const target = p * ovf;
+    cur = RM ? target : cur + (target - cur) * 0.14;
+    if(Math.abs(target - cur) < 0.1) cur = target;
+    track.style.transform = 'translate3d(' + (-cur) + 'px,0,0)';
+    procFill.style.width = (p*100) + '%';
+    rulerFill.style.width = (p*100) + '%';
+  }
+  procLayout();
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(procLayout);
+
+  /* ---------- hero canvas: disorder → structure ---------- */
+  const cv = $('#heroCanvas'), ctx = cv.getContext('2d');
+  let W = 0, H = 0, latt = [], pts = [], bx = 0, heroVis = true, mx = -9e3, my = -9e3;
+  const ACC = '226,88,42', FG = '226,231,238';
+
+  function spawn(isSig){
+    return { x: Math.random()*bx*0.9, y: Math.random()*H,
+             vx: .3 + Math.random()*.5, vy: (Math.random()-.5)*.4,
+             lock: null, wait: 0, sig: isSig, a: .25 + Math.random()*.45, px: 0, py: 0 };
+  }
+  function build(){
+    latt = [];
+    const s = Math.max(52, Math.min(76, W/18));
+    for(let x = bx + s*.8; x < W - 24; x += s)
+      for(let y = s*.9; y < H - 24; y += s)
+        latt.push({x, y, ph: Math.random()*6.283, g: 0});
+    const n = Math.min(170, Math.max(80, Math.round(W*H/15000)));
+    pts = [];
+    for(let i = 0; i < n; i++) pts.push(spawn(i < 5));
+    if(RM) pts.forEach((p,i) => { if(i % 2 === 0){ p.x = bx + Math.random()*(W-bx); const l = nearest(p.x,p.y); if(l){ p.lock = l; p.x = l.x; p.y = l.y; } } });
+  }
+  function size(){
+    const dpr = Math.min(2, devicePixelRatio || 1);
+    W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = W*dpr; cv.height = H*dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    bx = W*0.56;
+    build();
+    if(RM) draw();
+  }
+  function nearest(x,y){
+    let best = null, bd = 1e18;
+    for(const p of latt){ const d = (p.x-x)*(p.x-x)+(p.y-y)*(p.y-y); if(d < bd){ bd = d; best = p; } }
+    return best;
+  }
+  cv.addEventListener('pointermove', e => { const r = cv.getBoundingClientRect(); mx = e.clientX - r.left; my = e.clientY - r.top; });
+  cv.addEventListener('pointerleave', () => { mx = my = -9e3; });
+  new IntersectionObserver(es => { heroVis = es[0].isIntersecting; }).observe($('#hero'));
+
+  function step(t){
+    const T = t*0.001;
+    for(const p of pts){
+      p.px = p.x; p.py = p.y;
+      if(p.lock){
+        const l = p.lock, tx = l.x + Math.sin(T*1.4 + l.ph)*2.5, ty = l.y + Math.cos(T*1.1 + l.ph)*2.5;
+        p.x += (tx-p.x)*.09; p.y += (ty-p.y)*.09;
+        l.g = 1;
+        if(Math.abs(tx-p.x) < .6){ p.wait += .016; if(p.wait > 4 + Math.random()*3) Object.assign(p, spawn(p.sig)); }
+      } else {
+        const a = Math.sin(p.x*.004 + T*.5) + Math.cos(p.y*.005 - T*.35) + Math.sin((p.x+p.y)*.0016 + T*.2);
+        p.vx += ((Math.cos(a*1.8)*.55 + .5) - p.vx)*.04;
+        p.vy += ((Math.sin(a*1.8)*.55) - p.vy)*.04;
+        const dx = p.x-mx, dy = p.y-my, d2 = dx*dx + dy*dy;
+        if(d2 < 16900){ const d = Math.sqrt(d2) || 1, f = (130-d)/130*.9; p.vx += dx/d*f; p.vy += dy/d*f; }
+        p.x += p.vx; p.y += p.vy;
+        if(p.y < 8){ p.y = 8; p.vy *= -1; } if(p.y > H-8){ p.y = H-8; p.vy *= -1; }
+        if(p.x < -30){ p.x = bx*.5; p.y = Math.random()*H; }
+        if(p.x > bx){ p.lock = nearest(p.x, p.y); p.wait = 0; }
+      }
+    }
+    for(const l of latt) l.g *= .94;
+  }
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.lineWidth = 1;
+    for(const l of latt){
+      ctx.fillStyle = 'rgba(230,234,240,0.14)';
+      ctx.fillRect(l.x-.7, l.y-.7, 1.4, 1.4);
+      if(l.g > .05){
+        ctx.fillStyle = 'rgba(' + ACC + ',' + (.5*l.g).toFixed(3) + ')';
+        ctx.fillRect(l.x-1.6, l.y-1.6, 3.2, 3.2);
+      }
+    }
+    for(let i = 0; i < pts.length; i++){
+      const a = pts[i];
+      for(let j = i+1; j < pts.length; j++){
+        const b = pts[j], dx = a.x-b.x, dy = a.y-b.y, d2 = dx*dx + dy*dy;
+        if(d2 < 6400){
+          const o = (1 - Math.sqrt(d2)/80) * ((a.sig || b.sig) ? .22 : .1);
+          ctx.strokeStyle = (a.sig || b.sig) ? 'rgba(' + ACC + ',' + o.toFixed(3) + ')' : 'rgba(' + FG + ',' + o.toFixed(3) + ')';
+          ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+        }
+      }
+    }
+    for(const p of pts){
+      if(p.sig){
+        ctx.strokeStyle = 'rgba(' + ACC + ',0.5)'; ctx.lineWidth = 1.4;
+        ctx.beginPath(); ctx.moveTo(p.px, p.py); ctx.lineTo(p.x, p.y); ctx.stroke();
+        ctx.fillStyle = 'rgba(' + ACC + ',0.95)';
+        ctx.beginPath(); ctx.arc(p.x, p.y, 2.1, 0, 6.283); ctx.fill();
+        ctx.lineWidth = 1;
+      } else {
+        ctx.fillStyle = 'rgba(' + FG + ',' + (p.a*(p.lock ? 1 : .8)).toFixed(3) + ')';
+        ctx.beginPath(); ctx.arc(p.x, p.y, 1.5, 0, 6.283); ctx.fill();
+      }
+    }
+  }
+  size();
+
+  /* ---------- case tabs ---------- */
+  const ctabs = $$('.case-tab');
+  ctabs.forEach(tb => tb.addEventListener('click', () => {
+    ctabs.forEach(x => { x.classList.toggle('is-on', x === tb); x.setAttribute('aria-selected', x === tb); });
+    ctabs.forEach(x => {
+      const p = document.getElementById(x.getAttribute('aria-controls'));
+      const on = x === tb;
+      p.hidden = !on;
+      if(on){ p.classList.remove('show'); void p.offsetWidth; p.classList.add('show'); }
+    });
+  }));
+
+  /* ---------- AI constellation ---------- */
+  const aiNet = $('#aiNet'), aiGs = $$('#aiNet .ai-g');
+  let aiI = 0, aiHov = false;
+  function aiSet(i){
+    aiI = i;
+    aiGs.forEach((g,k) => g.classList.toggle('on', k === i));
+  }
+  aiGs.forEach((g,i) => {
+    g.addEventListener('pointerenter', () => aiSet(i));
+    g.addEventListener('focus', () => aiSet(i));
+  });
+  aiNet.addEventListener('pointerenter', () => { aiHov = true;  aiNet.classList.add('hov'); });
+  aiNet.addEventListener('pointerleave', () => { aiHov = false; aiNet.classList.remove('hov'); });
+  if(!RM) setInterval(() => { if(!aiHov) aiSet((aiI+1) % aiGs.length); }, 2800);
+  aiSet(0);
+
+  /* ---------- contact dial ---------- */
+  const dial = $('#ctaDial'), NS = 'http://www.w3.org/2000/svg';
+  if(dial){
+    const c = document.createElementNS(NS,'circle');
+    c.setAttribute('cx','300'); c.setAttribute('cy','300'); c.setAttribute('r','286');
+    dial.appendChild(c);
+    for(let i = 0; i < 72; i++){
+      const a = i/72*Math.PI*2, r1 = (i % 6 === 0) ? 270 : 279;
+      const l = document.createElementNS(NS,'line');
+      l.setAttribute('x1', 300 + Math.cos(a)*r1);  l.setAttribute('y1', 300 + Math.sin(a)*r1);
+      l.setAttribute('x2', 300 + Math.cos(a)*286); l.setAttribute('y2', 300 + Math.sin(a)*286);
+      dial.appendChild(l);
+    }
+  }
+
+  /* ---------- toast ---------- */
+  let toastT;
+  function toast(msg){
+    const t = $('#toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastT);
+    toastT = setTimeout(() => t.classList.remove('show'), 3600);
+  }
+
+  /* ---------- modal ---------- */
+  const modal = $('#modal'), modalKick = $('#modalKick'), form = $('#ctForm');
+  const fName = $('#fName'), fEmail = $('#fEmail'), fCo = $('#fCo'), fMsg = $('#fMsg');
+  let lastFocus = null;
+  function openModal(subject){
+    lastFocus = document.activeElement;
+    modalKick.textContent = subject || 'General enquiry';
+    modal.classList.add('open');
+    modal.setAttribute('aria-hidden','false');
+    document.body.classList.add('lock');
+    setTimeout(() => fName.focus(), 120);
+  }
+  function closeModal(){
+    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden','true');
+    document.body.classList.remove('lock');
+    if(lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  $$('[data-modal]').forEach(b => b.addEventListener('click', () => {
+    if(menuOpen) setMenu(false);
+    openModal(b.dataset.subject);
+  }));
+  modal.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', closeModal));
+  document.addEventListener('keydown', e => {
+    if(e.key === 'Escape'){ if(modal.classList.contains('open')) closeModal(); if(menuOpen) setMenu(false); }
+  });
+  modal.addEventListener('keydown', e => {
+    if(e.key !== 'Tab') return;
+    const f = [...modal.querySelectorAll('button,input,textarea,a')].filter(x => !x.disabled && x.offsetParent !== null);
+    const first = f[0], last = f[f.length-1];
+    if(e.shiftKey && document.activeElement === first){ last.focus(); e.preventDefault(); }
+    else if(!e.shiftKey && document.activeElement === last){ first.focus(); e.preventDefault(); }
+  });
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    if(!fName.checkValidity() || !fEmail.checkValidity() || !fMsg.checkValidity()){ form.reportValidity(); return; }
+    const body = 'Name: ' + fName.value.trim() + '\nCompany: ' + (fCo.value.trim() || '—') +
+                 '\nEmail: ' + fEmail.value.trim() + '\n\nProblem / project:\n' + fMsg.value.trim();
+    location.href = 'mailto:inevitdigitalsolutions@gmail.com?subject=' +
+      encodeURIComponent(modalKick.textContent) + '&body=' + encodeURIComponent(body);
+    toast('Opening your email app — nothing is stored on this page.');
+    closeModal();
+  });
+
+  /* ---------- copy email ---------- */
+  $('#copyMail').addEventListener('click', async () => {
+    const em = 'inevitdigitalsolutions@gmail.com';
+    try { await navigator.clipboard.writeText(em); }
+    catch(_){
+      const ta = document.createElement('textarea');
+      ta.value = em; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); ta.remove();
+    }
+    toast('Email address copied to clipboard.');
+  });
+
+  /* ---------- master animation loop ---------- */
+  if(!RM){
+    requestAnimationFrame(function loop(t){
+      if(heroVis){ step(t); draw(); }
+      procUpdate();
+      if(solAuto && solVis && t - lastSol > SOL_DUR) setSol((solI+1) % SOL.length);
+      if(solAuto && solVis) solProg.style.width = (Math.min(1, (t-lastSol)/SOL_DUR)*100) + '%';
+      requestAnimationFrame(loop);
+    });
+  } else {
+    addEventListener('scroll', () => { procUpdate(); }, {passive:true});
+    procUpdate();
+  }
+
+  /* ---------- resize ---------- */
+  let rzT;
+  addEventListener('resize', () => {
+    clearTimeout(rzT);
+    rzT = setTimeout(() => { size(); procLayout(); }, 150);
+  });
+
+  $('#yr').textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
