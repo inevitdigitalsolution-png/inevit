@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Inevit — Logo Export · Transparent PNG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0b0d10;--ink2:#101318;--paper:#f4f1ea;--ember:#e2582a;--txt:#eceae4;--mut:#9aa1aa;--line:rgba(255,255,255,.09)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--ink);color:var(--txt);font:400 1rem/1.6 'Sora',sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+.mono{font-family:'JetBrains Mono',monospace}
+header{padding:1.4rem clamp(1.25rem,4vw,2.5rem);border-bottom:1px solid var(--line)}
+header h1{font-size:1.05rem;font-weight:500;letter-spacing:-.01em}
+header p{font-size:.72rem;color:var(--mut);letter-spacing:.08em;margin-top:.15rem}
+main{flex:1;width:100%;max-width:1080px;margin:0 auto;padding:clamp(1.5rem,4vw,3rem) clamp(1.25rem,4vw,2.5rem);display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(1.5rem,4vw,3rem);align-items:start}
+.previews{display:grid;gap:1rem}
+.tile{border:1px solid var(--line);border-radius:16px;min-height:220px;display:flex;align-items:center;justify-content:center;padding:2rem;position:relative}
+.tile.dark{background:#0b0d10}
+.tile.light{background:#f4f1ea}
+.tile .tag{position:absolute;top:.8rem;left:1rem;font:500 .58rem 'JetBrains Mono';letter-spacing:.2em;text-transform:uppercase;color:#6d747d}
+.tile.light .tag{color:#8a8d92}
+.tile svg{width:min(420px,100%);height:auto}
+.panel{border:1px solid var(--line);border-radius:16px;padding:1.6rem;background:var(--ink2);display:flex;flex-direction:column;gap:1.5rem;position:sticky;top:1.5rem}
+.ctl .lb{display:block;font:500 .6rem 'JetBrains Mono';letter-spacing:.22em;text-transform:uppercase;color:var(--mut);margin-bottom:.7rem}
+.seg{display:flex;flex-wrap:wrap;gap:.5rem}
+.seg button{font:500 .78rem 'Sora';padding:.6rem 1.05rem;border:1px solid var(--line);border-radius:999px;color:#b9bec6;background:none;cursor:pointer;transition:.3s}
+.seg button:hover{border-color:rgba(255,255,255,.35);color:#fff}
+.seg button[aria-pressed="true"]{background:var(--txt);color:var(--ink);border-color:var(--txt)}
+.chk{display:flex;align-items:center;gap:.7rem;font-size:.85rem;color:#b9bec6;cursor:pointer;user-select:none}
+.chk input{accent-color:var(--ember);width:15px;height:15px;cursor:pointer}
+.btns{display:flex;flex-direction:column;gap:.7rem}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;font:500 .9rem 'Sora';padding:.95rem 1.4rem;border-radius:999px;border:1px solid transparent;cursor:pointer;transition:.3s}
+.btn-solid{background:var(--txt);color:var(--ink)}
+.btn-solid:hover{background:#fff;transform:translateY(-1px)}
+.btn-ghost{border-color:rgba(255,255,255,.25);color:var(--txt)}
+.btn-ghost:hover{border-color:rgba(255,255,255,.55)}
+.note{font-size:.72rem;color:#6d747d;line-height:1.7}
+footer{padding:1.1rem clamp(1.25rem,4vw,2.5rem);border-top:1px solid var(--line);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:#6d747d}
+.toast{position:fixed;left:50%;bottom:1.4rem;transform:translate(-50%,12px);opacity:0;pointer-events:none;background:#15181d;border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:.8rem 1.4rem;font:500 .72rem 'JetBrains Mono';transition:.35s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:860px){main{grid-template-columns:1fr}.panel{position:static}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Inevit — Logo Export</h1>
+  <p class="mono">Transparent PNG &amp; SVG · white / ink / ember</p>
+</header>
+<main>
+  <section class="previews" aria-label="Logo preview">
+    <div class="tile dark"><span class="tag">On dark</span><div id="pvDark"></div></div>
+    <div class="tile light"><span class="tag">On light</span><div id="pvLight"></div></div>
+  </section>
+  <aside class="panel">
+    <div class="ctl"><span class="lb">Colour</span>
+      <div class="seg" id="segColor">
+        <button data-v="#FFFFFF" aria-pressed="true">White</button>
+        <button data-v="#0B0D10" aria-pressed="false">Ink</button>
+        <button data-v="#E2582A" aria-pressed="false">Ember</button>
+      </div>
+    </div>
+    <div class="ctl"><span class="lb">Width (px)</span>
+      <div class="seg" id="segSize">
+        <button data-v="512" aria-pressed="false">512</button>
+        <button data-v="1024" aria-pressed="false">1024</button>
+        <button data-v="2048" aria-pressed="true">2048</button>
+        <button data-v="4096" aria-pressed="false">4096</button>
+      </div>
+    </div>
+    <label class="chk"><input type="checkbox" id="padChk" checked> Add 6% breathing room</label>
+    <div class="btns">
+      <button class="btn btn-solid" id="dlPng">Download PNG</button>
+      <button class="btn btn-ghost" id="dlSvg">Download SVG</button>
+    </div>
+    <p class="note">PNG and SVG export with a fully transparent background — no white box. White reads on dark surfaces, ink on light. Files save straight to your downloads folder.</p>
+  </aside>
+</main>
+<footer class="mono">Inevit Digital Solutions · brand asset export</footer>
+<div class="toast mono" id="toast" role="status"></div>
+
+<script>
+'use strict';
+/* =====================================================================
+   geometry — single source of truth
+   viewBox 1073 × 441, traced from the approved reference artwork.
+   The wordmark ("INEVIT", with N/E drawn as an interlocked monogram)
+   uses two stroke weights, which is a deliberate feature of the mark:
+     THICK — the two flanking verticals (I, N) and the E/T top bars
+     THIN  — the E stem/crossbars, the N/E connecting diagonals, V, the
+             second I, and the T stem
+   ===================================================================== */
+const W = 1073, H = 441;
+const THICK = 25, THIN = 19;
+
+/* each entry: d = path data, w = stroke width for that stroke */
+const STROKES = [
+  { d: 'M26 0V320',              w: THICK }, /* I (1st) */
+
+  { d: 'M158 0V320',             w: THICK }, /* N — left vertical */
+  { d: 'M158 0 320 220',         w: THIN  }, /* N — diagonal down to the E stem */
+  { d: 'M320 220 396 300',       w: THIN  }, /* N — diagonal continues past the stem */
+
+  { d: 'M320 0V320',             w: THIN  }, /* E — stem */
+  { d: 'M320 12.5H480',          w: THICK }, /* E — top bar */
+  { d: 'M396 0V105',             w: THICK }, /* E — top accent hanging from the top bar */
+  { d: 'M320 153H480',           w: THIN  }, /* E — mid bar */
+  { d: 'M396 205V320',           w: THICK }, /* E — bottom accent rising to meet the diagonal */
+  { d: 'M320 310H480',           w: THIN  }, /* E — bottom bar */
+
+  { d: 'M538 0 635 320 734 0',   w: THIN  }, /* V */
+
+  { d: 'M809 0V320',             w: THIN  }, /* I (2nd) */
+
+  { d: 'M879 12.5H1067',         w: THICK }, /* T — top bar */
+  { d: 'M973 12.5V320',          w: THIN  }, /* T — stem */
+];
+
+const SUB = 'DIGITAL SOLUTIONS', SUB_Y = 435, SUB_SIZE = 98, SUB_X = 8, SUB_W = 1040;
+
+function logoSVG(color){
+  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Inevit Digital Solutions">'
+    + '<title>Inevit Digital Solutions</title>'
+    + '<g fill="none" stroke="' + color + '" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="4">'
+    + STROKES.map(s => '<path d="' + s.d + '" stroke-width="' + s.w + '"/>').join('')
+    + '</g>'
+    + '<text x="' + SUB_X + '" y="' + SUB_Y + '" font-family="Sora,\'Century Gothic\',\'Avenir Next\',\'Futura\',\'Segoe UI\',sans-serif" font-weight="300" font-size="' + SUB_SIZE + '" letter-spacing="10" fill="' + color + '">' + SUB + '</text>'
+    + '</svg>';
+}
+
+/* ===== transparent PNG renderer ===== */
+async function renderPNG(size, color, pad){
+  try { await document.fonts.load('300 ' + SUB_SIZE + 'px Sora'); } catch(e){}
+  const p = pad ? 0.06 : 0;
+  const s = size / (W * (1 + 2 * p));
+  const c = document.createElement('canvas');
+  c.width  = Math.round(size);
+  c.height = Math.round(H * s * (1 + 2 * p));
+  const x = c.getContext('2d');
+  x.scale(s, s);
+  x.translate(W * p, H * p);
+  /* wordmark — each stroke drawn at its own weight */
+  x.lineJoin = 'miter'; x.miterLimit = 4; x.lineCap = 'butt';
+  x.strokeStyle = color;
+  STROKES.forEach(seg => { x.lineWidth = seg.w; x.stroke(new Path2D(seg.d)); });
+  /* subtitle — measured & justified to the exact wordmark width */
+  x.fillStyle = color;
+  x.font = '300 ' + SUB_SIZE + 'px Sora, "Century Gothic", "Segoe UI", sans-serif';
+  x.textBaseline = 'alphabetic';
+  const chars = [...SUB];
+  const ws = chars.map(ch => x.measureText(ch).width);
+  const sp = (SUB_W - ws.reduce((a, b) => a + b, 0)) / (chars.length - 1);
+  let cx = SUB_X;
+  chars.forEach((ch, i) => { x.fillText(ch, cx, SUB_Y); cx += ws[i] + sp; });
+  return await new Promise(r => c.toBlob(r, 'image/png'));
+}
+
+/* ===== UI wiring ===== */
+let color = '#FFFFFF', size = 2048;
+const toastEl = document.getElementById('toast'); let tt;
+function toast(m){ toastEl.textContent = m; toastEl.classList.add('show'); clearTimeout(tt); tt = setTimeout(() => toastEl.classList.remove('show'), 2600); }
+function paint(){
+  const s = logoSVG(color);
+  document.getElementById('pvDark').innerHTML  = s;
+  document.getElementById('pvLight').innerHTML = s;
+}
+function seg(id, fn){
+  const el = document.getElementById(id);
+  el.addEventListener('click', e => {
+    const b = e.target.closest('button'); if(!b) return;
+    [...el.children].forEach(x => x.setAttribute('aria-pressed', x === b));
+    fn(b.dataset.v);
+  });
+}
+seg('segColor', v => { color = v; paint(); });
+seg('segSize',  v => { size = +v; });
+function save(blob, name){
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob); a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+}
+function fileName(ext){
+  const c = color === '#FFFFFF' ? 'white' : color === '#0B0D10' ? 'ink' : 'ember';
+  return 'inevit-logo-' + c + (ext === 'png' ? '-' + size : '') + '.' + ext;
+}
+document.getElementById('dlPng').addEventListener('click', async () => {
+  toast('Rendering ' + size + 'px PNG…');
+  const blob = await renderPNG(size, color, document.getElementById('padChk').checked);
+  save(blob, fileName('png'));
+  toast('PNG saved — transparent background ✓');
+});
+document.getElementById('dlSvg').addEventListener('click', () => {
+  save(new Blob([logoSVG(color)], { type: 'image/svg+xml' }), fileName('svg'));
+  toast('SVG saved — infinitely scalable ✓');
+});
+paint();
+</script>
+</body>
+</html>
